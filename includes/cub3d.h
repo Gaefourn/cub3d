@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: glaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/02 03:33:11 by glaurent          #+#    #+#             */
-/*   Updated: 2019/12/09 04:49:53 by gaefourn         ###   ########.fr       */
+/*   Created: 2019/12/02 03:33:11 by gaefourn          #+#    #+#             */
+/*   Updated: 2019/12/15 17:50:54 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,5 +148,8 @@ void			move_right(t_data *data);
 void			turn_left(t_data *data);
 void			turn_right(t_data *data);
 t_img			resize_image(t_data *data, t_img *src, int width, int height);
+void			load_textures(t_data *data);
+void			load_background(t_data *data);
+void			crt_window(t_data *data);
 
 #endif
