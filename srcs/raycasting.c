@@ -6,11 +6,21 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 21:07:22 by gaefourn          #+#    #+#             */
-/*   Updated: 2019/12/09 00:44:24 by gaefourn         ###   ########.fr       */
+/*   Updated: 2019/12/15 22:23:23 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	check_obs(t_data *data)
+{
+	if (data->map[data->ray.mapx][data->ray.mapy] == '1' ||
+			data->map[data->ray.mapx][data->ray.mapy] == '3')
+		data->ray.hit = 1;
+	if (data->map[data->ray.mapx][data->ray.mapy] == '2')
+		create_obj(data, &(data->obj));
+
+}
 
 void	raycasting(t_data *data, int x)
 {
@@ -30,7 +40,7 @@ void	raycasting(t_data *data, int x)
 			data->ray.side = 1;
 		}
 		if (data->map[data->ray.mapx][data->ray.mapy] > '0')
-			data->ray.hit = 1;
+			check_obs(data);
 	}
 	wall_dist(data);
 }

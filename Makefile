@@ -4,7 +4,7 @@ NAME     =	Cub3D
 CC       =	gcc
 
 #	Flags     #
-CFLAGS   =	-Wall -Wextra -O3 -g3 -fsanitize=address -Werror
+CFLAGS   =	-Wall -Wextra -O3 -Werror -g3 -fsanitize=address
 GFLAGS   =	-lm -L$(MLX_PATH) -lmlx -I$(MLX_PATH) -framework OpenGL -framework Appkit
 
 # 	Headers   #
@@ -22,7 +22,8 @@ SRC_NAME =	main.c \
 			moves2.c \
 			raycasting.c \
 			load.c \
-			image.c
+			image.c \
+			objects.c
 SRC      =	$(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
 DEP  = $(OBJ:%.o=%.d)

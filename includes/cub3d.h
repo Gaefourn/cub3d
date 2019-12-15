@@ -6,7 +6,7 @@
 /*   By: glaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 03:33:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2019/12/15 17:50:54 by gaefourn         ###   ########.fr       */
+/*   Updated: 2019/12/15 23:36:31 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,13 @@ typedef	struct	s_ray
 	int			heightline;
 }				t_ray;
 
+typedef	struct	s_obj
+{
+	t_pos			pos;
+	t_ray			ray;
+	struct	s_obj	*next;
+}				t_obj;
+
 typedef	struct	s_data
 {
 	t_perso		perso;
@@ -128,6 +135,9 @@ typedef	struct	s_data
 	t_img		tmp_stext;
 	t_img		tmp_etext;
 	t_img		tmp_wtext;
+	t_img		sprite;
+	t_img		tmp_sprite;
+	t_obj		*obj;
 	pid_t		music;
 	char		**map;
 }				t_data;
@@ -151,5 +161,9 @@ t_img			resize_image(t_data *data, t_img *src, int width, int height);
 void			load_textures(t_data *data);
 void			load_background(t_data *data);
 void			crt_window(t_data *data);
+void			*create_obj(t_data *data, t_obj **obj);
+void			free_obj(t_obj *obj);
+void			print_objects(t_data *data, int column, int i);
+long            dark(int color, double walldist);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 17:34:29 by gaefourn          #+#    #+#             */
-/*   Updated: 2019/12/15 17:45:07 by gaefourn         ###   ########.fr       */
+/*   Updated: 2019/12/15 23:34:44 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,21 @@
 
 int				*get_texture(t_data *data)
 {
-	if (data->ray.side == 1)
+	if (data->map[data->ray.mapx][data->ray.mapy] == '1' ||
+		data->map[data->ray.mapx][data->ray.mapy] == '3')
 	{
-		if (data->ray.stepy == -1)
-			return (data->ntext.buffer);
-		if (data->ray.stepy == 1)
-			return (data->stext.buffer);
+		if (data->ray.side == 1)
+		{
+			if (data->ray.stepy == -1)
+				return (data->ntext.buffer);
+			if (data->ray.stepy == 1)
+				return (data->stext.buffer);
+		}
+		if (data->ray.stepx == -1)
+			return (data->etext.buffer);
 	}
-	if (data->ray.stepx == -1)
-		return (data->etext.buffer);
+	else if (data->map[data->ray.mapx][data->ray.mapy] == '2')
+		return (data->sprite.buffer);
 	return (data->wtext.buffer);
 }
 
@@ -70,16 +76,16 @@ static void		crt_wall(t_data *data, int column, int i, int *rend)
 {
 	if (data->ray.side == 1)
 		data->img.buffer[column + (i * (data->img.size / sizeof(int)))] =
-	dark(rend[(int)(((data->ray.walldist * data->ray.dirx + data->perso.pos.x
-	- (int)(data->ray.walldist * data->ray.dirx + data->perso.pos.x)) * 750) +
+dark(rend[(int)(((data->ray.walldist * data->ray.dirx + data->perso.pos.x
+- (int)(data->ray.walldist * data->ray.dirx + data->perso.pos.x)) * 750) +
 (int)((int)((i - data->ray.truestart) * (750 / (double)data->ray.heightline)) *
-	(data->ntext.size / sizeof(int))))], data->ray.walldist);
+(data->ntext.size / sizeof(int))))], data->ray.walldist);
 	else
 		data->img.buffer[column + (i * (data->img.size / sizeof(int)))] =
-	dark(rend[(int)(((data->ray.walldist * data->ray.diry + data->perso.pos.y
-	- (int)(data->ray.walldist * data->ray.diry + data->perso.pos.y)) * 750) +
+dark(rend[(int)(((data->ray.walldist * data->ray.diry + data->perso.pos.y
+- (int)(data->ray.walldist * data->ray.diry + data->perso.pos.y)) * 750) +
 (int)((int)((i - data->ray.truestart) * (750 / (double)data->ray.heightline)) *
-	(data->ntext.size / sizeof(int))))], data->ray.walldist);
+(data->ntext.size / sizeof(int))))], data->ray.walldist);
 }
 
 void			crt_column(t_data *data, int column)
@@ -97,6 +103,7 @@ void			crt_column(t_data *data, int column)
 	{
 		rend = texture;
 		crt_wall(data, column, i, rend);
+		print_objects(data, column, i);
 	}
 	i--;
 	while (++i < HEIGHT)

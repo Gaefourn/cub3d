@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 17:46:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2019/12/15 17:49:50 by gaefourn         ###   ########.fr       */
+/*   Updated: 2019/12/15 22:57:45 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ void	load_background(t_data *data)
 	data->tmp_sol = resize_image(data, &data->sol, WIDTH, HEIGHT / 2);
 	mlx_destroy_image(data->mlx.ptr, data->sol.ptr);
 	data->sol = data->tmp_sol;
+	data->sprite.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
+			"./textures/sprite.xpm",
+			&(data->sprite.width), &(data->sprite.height));
+	data->tmp_sprite = resize_image(data, &data->sprite, 750, 750);
+	mlx_destroy_image(data->mlx.ptr, data->sprite.ptr);
+	data->sprite = data->tmp_sprite;
 }
 
 void	crt_window(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 01:57:37 by gaefourn          #+#    #+#             */
-/*   Updated: 2019/12/15 17:49:30 by gaefourn         ###   ########.fr       */
+/*   Updated: 2019/12/15 22:42:25 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ int		ft_move(t_data *data)
 		data->perso.speed = 0.086;
 	crt_img(data);
 	put_image_to_window(data);
+	free_obj(data->obj);
+	data->obj = NULL;
 	return (0);
 }
 
