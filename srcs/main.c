@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 01:57:37 by gaefourn          #+#    #+#             */
-/*   Updated: 2019/12/15 22:42:25 by gaefourn         ###   ########.fr       */
+/*   Updated: 2019/12/17 06:14:06 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		exit_properly(t_bool error, char *error_msg)
 	int	i;
 
 	i = 0;
-	system("killall afplay");
+//	system("killall afplay");
 	if (error == TRUE)
 	{
 		while (error_msg[i])
@@ -91,8 +91,8 @@ int		ft_move(t_data *data)
 		data->perso.speed = 0.086;
 	crt_img(data);
 	put_image_to_window(data);
-	free_obj(data->obj);
-	data->obj = NULL;
+//	free_obj(data->obj);
+	//data->obj = NULL;
 	return (0);
 }
 
@@ -104,7 +104,7 @@ int		main(void)
 	crt_window(&data);
 	load_background(&data);
 	load_textures(&data);
-	system("afplay sounds/bgm.mp3 &");
+//	system("afplay sounds/bgm.mp3 &");
 	mlx_do_key_autorepeatoff(data.mlx.ptr);
 	mlx_hook(data.mlx.win, KEYDOWN, 0, key, &data);
 	mlx_hook(data.mlx.win, KEYUP, 0, key, &data);

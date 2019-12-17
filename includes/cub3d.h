@@ -6,7 +6,7 @@
 /*   By: glaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 03:33:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2019/12/15 23:36:31 by gaefourn         ###   ########.fr       */
+/*   Updated: 2019/12/17 06:36:34 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ typedef	struct	s_ray
 
 typedef	struct	s_obj
 {
-	t_pos			pos;
+	int				test;
 	t_ray			ray;
 	struct	s_obj	*next;
 }				t_obj;
@@ -139,6 +139,7 @@ typedef	struct	s_data
 	t_img		tmp_sprite;
 	t_obj		*obj;
 	pid_t		music;
+	int			check;
 	char		**map;
 }				t_data;
 

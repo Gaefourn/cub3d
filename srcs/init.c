@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 22:15:49 by gaefourn          #+#    #+#             */
-/*   Updated: 2019/12/15 23:15:16 by gaefourn         ###   ########.fr       */
+/*   Updated: 2019/12/17 06:36:20 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,8 @@ void	ft_init(t_data *data)
 	data->perso.planx = 0;
 	data->perso.plany = 0;
 	ft_init_map(data);
+	data->obj = malloc(sizeof(t_obj));
+	data->obj->test = 0;
+	data->obj->next = NULL;
+	data->check = 0;
 }

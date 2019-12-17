@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 22:13:24 by gaefourn          #+#    #+#             */
-/*   Updated: 2019/12/15 23:29:08 by gaefourn         ###   ########.fr       */
+/*   Updated: 2019/12/17 06:44:42 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ void	*crt_img(t_data *data)
 	{
 		raycasting(data, x);
 		crt_column(data, x);
+		if (data->obj->test == 1)
+		{
+				 mlx_put_image_to_window(data->mlx.ptr, data->mlx.win, data->sprite.ptr, 0, 0);
+				 data->obj->test = 0;
+		}
 	}
 	return (data->img.buffer);
 }
