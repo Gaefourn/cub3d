@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 01:57:37 by gaefourn          #+#    #+#             */
-/*   Updated: 2019/12/17 06:14:06 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/05 22:27:48 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,16 @@ int		key(int key, t_data *data)
 		data->event.door ^= 1;
 	else if (key == RUN)
 		data->event.run ^= 1;
+	else if (key == SCREENSHOT)
+		data->event.screenshot ^= 1;
 	return (0);
 }
 
 void	put_image_to_window(t_data *data)
 {
-	mlx_put_image_to_window(data->mlx.ptr, data->mlx.win, data->ciel.ptr, 0, 0);
-	mlx_put_image_to_window(data->mlx.ptr, data->mlx.win,
-			data->sol.ptr, 0, HEIGHT / 2);
+//	mlx_put_image_to_window(data->mlx.ptr, data->mlx.win, data->ciel.ptr, 0, 0);
+//	mlx_put_image_to_window(data->mlx.ptr, data->mlx.win,
+//			data->sol.ptr, 0, HEIGHT / 2);
 	mlx_put_image_to_window(data->mlx.ptr, data->mlx.win, data->img.ptr, 0, 0);
 }
 
@@ -89,8 +91,14 @@ int		ft_move(t_data *data)
 		data->perso.speed = 0.118;
 	if (data->event.run == 0 && data->perso.speed != 0.066)
 		data->perso.speed = 0.086;
+	if (data->event.screenshot == 1)
+		screenshot(data);
 	crt_img(data);
 	put_image_to_window(data);
+	if (data->obj->test == 1)
+        {
+                 mlx_put_image_to_window(data->mlx.ptr, data->mlx.win, data->sprite.ptr, 0, 0);                 data->obj->test = 0;
+        }
 //	free_obj(data->obj);
 	//data->obj = NULL;
 	return (0);

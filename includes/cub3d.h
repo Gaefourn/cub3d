@@ -6,7 +6,7 @@
 /*   By: glaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 03:33:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2019/12/17 06:36:34 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/05 21:58:35 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define R_ARROW 124
 # define DOOR 14
 # define RUN 257
+# define SCREENSHOT 105
 # define ABS(Value) (Value < 0) ? -Value : Value
 
 # include "mlx.h"
@@ -34,6 +35,7 @@
 # include <unistd.h>
 # include <math.h>
 # include <signal.h>
+# include <fcntl.h>
 
 typedef enum	e_bool
 {
@@ -84,6 +86,7 @@ typedef	struct	s_event
 	t_bool		r_arrow;
 	t_bool		door;
 	t_bool		run;
+	t_bool		screenshot;
 }				t_event;
 
 typedef	struct	s_ray
@@ -166,5 +169,6 @@ void			*create_obj(t_data *data, t_obj **obj);
 void			free_obj(t_obj *obj);
 void			print_objects(t_data *data, int column, int i);
 long            dark(int color, double walldist);
+void			screenshot(t_data *data);
 
 #endif

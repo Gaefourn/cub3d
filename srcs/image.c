@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 17:34:29 by gaefourn          #+#    #+#             */
-/*   Updated: 2019/12/17 05:51:49 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/05 22:38:03 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ long			trans(int color, t_data *data, int i)
 	if (*byte + calcul2 < 255 && i < 2 * data->ray.end - data->ray.start)
 		*byte += calcul2;
 	else
-		*byte = 255;
+		return (0);
 	return ((long)color);
 }
 
@@ -95,7 +95,7 @@ void			crt_column(t_data *data, int column)
 	i = -1;
 	texture = get_texture(data);
 	while (++i < data->ray.start)
-		data->img.buffer[column + (i * (data->img.size / 4))] = 0xFF000000;
+		data->img.buffer[column + (i * (data->img.size / 4))] = data->ciel.buffer[column + (i * (data->img.size / 4))];
 	i--;
 	while (++i < data->ray.end)
 	{
@@ -106,8 +106,9 @@ void			crt_column(t_data *data, int column)
 	i--;
 	while (++i < HEIGHT)
 	{
-		data->img.buffer[column + (i * (data->img.size / sizeof(int)))] =
-			trans(data->img.buffer[column + ((data->ray.end
-							- (i - data->ray.end)) * (data->img.size / sizeof(int)))], data, i);
+//		if ((data->img.buffer[column + (i * (data->img.size / sizeof(int)))] =
+//			trans(data->img.buffer[column + ((data->ray.end
+//							- (i - data->ray.end)) * (data->img.size / sizeof(int)))], data, i)) == 0)
+		data->img.buffer[column + (i * (data->img.size / sizeof(int)))] = data->sol.buffer[column + ((i - (HEIGHT / 2)) * (data->img.size / 4))];
 	}
 }

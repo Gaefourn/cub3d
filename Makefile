@@ -23,7 +23,8 @@ SRC_NAME =	main.c \
 			raycasting.c \
 			load.c \
 			image.c \
-			objects.c
+			objects.c \
+			screenshot.c
 SRC      =	$(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
 DEP  = $(OBJ:%.o=%.d)
