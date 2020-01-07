@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 21:01:51 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/05 22:35:05 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/06 00:09:39 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void		screenshot(t_data *data)
 	pxl_byte_row = WIDTH * 3;
 	pad_byte_row = (4 - (pxl_byte_row % 4)) % 4;
 	fd_size = 54 + (pxl_byte_row + pad_byte_row) * HEIGHT;
-	if ((fd = open("./screenshot/screenshot.bmp", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR |
+	if ((fd = open("./screenshot/screenshot.bmp", O_WRONLY | O_CREAT
+		| O_TRUNC, S_IRUSR |
 		S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH)) < 0)
 		write(2, "error\n", 6);
 	if (write_header(fd, fd_size) < 0)

@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 01:57:37 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/05 22:27:48 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/08 00:09:29 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int		exit_properly(t_bool error, char *error_msg)
 
 int		key(int key, t_data *data)
 {
-	printf("%d\n", key);
 	if (key == ESC)
 		exit_properly(FALSE, NULL);
 	else if (key == FORWARD)
@@ -88,19 +87,19 @@ int		ft_move(t_data *data)
 					data->perso.speed))][(int)(data->perso.pos.y +
 								(data->perso.dir.y * data->perso.speed))] = '0';
 	if (data->event.run == 1)
-		data->perso.speed = 0.118;
+		data->perso.speed = 0.200;
 	if (data->event.run == 0 && data->perso.speed != 0.066)
 		data->perso.speed = 0.086;
 	if (data->event.screenshot == 1)
 		screenshot(data);
 	crt_img(data);
+	if (data->obj)
+	{
+		print_obj(data, data->obj);
+		free_obj(data->obj);
+		data->obj = NULL;
+	}
 	put_image_to_window(data);
-	if (data->obj->test == 1)
-        {
-                 mlx_put_image_to_window(data->mlx.ptr, data->mlx.win, data->sprite.ptr, 0, 0);                 data->obj->test = 0;
-        }
-//	free_obj(data->obj);
-	//data->obj = NULL;
 	return (0);
 }
 

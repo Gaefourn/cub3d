@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 22:13:24 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/05 21:58:53 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/08 00:04:10 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,7 @@ t_img	resize_image(t_data *data, t_img *src, int width, int height)
 								(src->size / 4))))];
 		}
 	}
+	dst.height = height;
+	dst.width = width;
 	return (dst);
 }

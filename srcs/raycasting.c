@@ -6,22 +6,21 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 21:07:22 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/05 21:59:03 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/07 23:00:48 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	check_obs(t_data *data)
+void	check_objs(t_data *data, int x)
 {
 	if (data->map[data->ray.mapx][data->ray.mapy] == '1' ||
 			data->map[data->ray.mapx][data->ray.mapy] == '3')
 		data->ray.hit = 1;
+	wall_dist(data);
+	data->ZBuffer[x] = data->ray.walldist;
 	if (data->map[data->ray.mapx][data->ray.mapy] == '2')
-	{
-		data->obj = create_obj(data, &(data->obj));
-		data->obj->test += 1;
-	}
+		create_obj(data, &data->obj , x);
 }
 
 void	raycasting(t_data *data, int x)
@@ -42,9 +41,8 @@ void	raycasting(t_data *data, int x)
 			data->ray.side = 1;
 		}
 		if (data->map[data->ray.mapx][data->ray.mapy] > '0')
-			check_obs(data);
+			check_objs(data, x);
 	}
-	wall_dist(data);
 }
 
 void	raycast_value(t_data *data, int x)
