@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 01:57:37 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/08 00:09:29 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/08 04:55:35 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,25 @@
 #include <unistd.h>
 #include <math.h>
 
-int		exit_properly(t_bool error, char *error_msg)
+int		exit_properly(char *error_msg)
 {
 	int	i;
 
 	i = 0;
 //	system("killall afplay");
-	if (error == TRUE)
-	{
 		while (error_msg[i])
 			++i;
 		write(2, error_msg, i);
+		write(2, "\n", 1);
 		exit(1);
-	}
 	exit(0);
 }
 
 int		key(int key, t_data *data)
 {
+	printf("%d\n", key);
 	if (key == ESC)
-		exit_properly(FALSE, NULL);
+		exit_properly("Cub3d s'est correctement eteint");
 	else if (key == FORWARD)
 		data->event.forward ^= 1;
 	else if (key == BACKWARD)
@@ -49,8 +48,6 @@ int		key(int key, t_data *data)
 		data->event.r_arrow ^= 1;
 	else if (key == L_ARROW)
 		data->event.l_arrow ^= 1;
-	else if (key == DOOR)
-		data->event.door ^= 1;
 	else if (key == RUN)
 		data->event.run ^= 1;
 	else if (key == SCREENSHOT)
@@ -88,7 +85,7 @@ int		ft_move(t_data *data)
 								(data->perso.dir.y * data->perso.speed))] = '0';
 	if (data->event.run == 1)
 		data->perso.speed = 0.200;
-	if (data->event.run == 0 && data->perso.speed != 0.066)
+	if (data->event.run != 1)
 		data->perso.speed = 0.086;
 	if (data->event.screenshot == 1)
 		screenshot(data);

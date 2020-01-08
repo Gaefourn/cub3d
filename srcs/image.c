@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 17:34:29 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/07 22:41:24 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/08 03:43:03 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,13 @@ void			crt_column(t_data *data, int column)
 	texture = get_texture(data);
 	while (++i < data->ray.start)
 		data->img.buffer[column + (i * (data->img.size / 4))] = data->ciel.buffer[column + (i * (data->img.size / 4))];
+		//		print_objects(data, column, i);
 	i--;
 	while (++i < data->ray.end)
 	{
 		rend = texture;
 		crt_wall(data, column, i, rend);
-		}
-		//		print_objects(data, column, i);
+	}
 	i--;
 	while (++i < HEIGHT)
 	{

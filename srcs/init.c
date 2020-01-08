@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 22:15:49 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/07 22:57:31 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/08 04:54:38 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,15 @@ void	ft_init(t_data *data)
 	data->perso.pos.y = 0;
 	data->perso.dir.x = 0;
 	data->perso.dir.y = 0;
-	data->perso.speed = 0.066;
 	data->perso.rot = 4 * M_PI / 180;
 	data->event.forward = 0;
 	data->event.backward = 0;
+	data->perso.speed = 0.88;
 	data->event.left = 0;
 	data->event.right = 0;
 	data->event.l_arrow = 0;
 	data->event.r_arrow = 0;
+	data->event.run = 0;
 	data->event.screenshot = 0;
 	data->perso.planx = 0;
 	data->perso.plany = 0;

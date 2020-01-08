@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 21:07:22 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/07 23:00:48 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/08 04:35:46 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ void	check_objs(t_data *data, int x)
 		data->ray.hit = 1;
 	wall_dist(data);
 	data->ZBuffer[x] = data->ray.walldist;
-	if (data->map[data->ray.mapx][data->ray.mapy] == '2')
-		create_obj(data, &data->obj , x);
+	if (data->map[data->ray.mapx][data->ray.mapy] == '2' ||
+		data->map[data->ray.mapx][data->ray.mapy] == '4' ||
+		data->map[data->ray.mapx][data->ray.mapy] == '5' ||
+		data->map[data->ray.mapx][data->ray.mapy] == '6')
+		create_obj(data, &data->obj , x, data->map[data->ray.mapx][data->ray.mapy]);
 }
 
 void	raycasting(t_data *data, int x)

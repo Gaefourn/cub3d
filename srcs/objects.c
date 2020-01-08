@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:47:43 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/08 00:04:51 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/08 04:14:55 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	print_obj(t_data *data, t_obj *obj)
 		while (++stripe < drawEndX)
 		{
 			int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX))
-					* data->sprite.width / spriteWidth) / 256;
+					* obj->sac.sprite.width / spriteWidth) / 256;
 			if (transformY > 0 && stripe > 0 && stripe < WIDTH
 					&& transformY < data->ZBuffer[stripe])
 			{
@@ -75,8 +75,8 @@ void	print_obj(t_data *data, t_obj *obj)
 				while (++y < drawEndY)
 				{
 					int d = y * 256 - HEIGHT * 128 + spriteHeight * 128;
-					int texY = ((d * data->sprite.height) / spriteHeight) / 256;
-					int color = dark(data->sprite.buffer[(data->sprite.width *
+					int texY = ((d * obj->sac.sprite.height) / spriteHeight) / 256;
+					int color = dark(obj->sac.sprite.buffer[(obj->sac.sprite.width *
 							texY + texX)], obj->sac.ray.walldist);
 					if((color & 0x00FFFFFF) != 0)
 					{
@@ -90,7 +90,7 @@ void	print_obj(t_data *data, t_obj *obj)
 	}
 }
 
-void	*create_obj(t_data *data, t_obj **obj, int column)
+void	*create_obj(t_data *data, t_obj **obj, int column, char c)
 {
 	while (*obj)
 	{
@@ -101,6 +101,14 @@ void	*create_obj(t_data *data, t_obj **obj, int column)
 	}
 	if (!(*obj = malloc(sizeof(t_obj))))
 		return (NULL);
+	if (c == '2')
+		(*obj)->sac.sprite = data->sprite;
+	if (c == '4')
+		(*obj)->sac.sprite = data->sprite2;
+	if (c == '5')
+		(*obj)->sac.sprite = data->sprite3;
+	if (c == '6')
+		(*obj)->sac.sprite = data->sprite4;
 	(*obj)->sac.ray = data->ray;
 	(*obj)->sac.column = column;
 	(*obj)->next = NULL;

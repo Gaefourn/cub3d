@@ -6,14 +6,14 @@
 /*   By: glaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 03:33:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/07 23:45:50 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/08 04:57:00 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# define WIDTH 1440
-# define HEIGHT 980
+# define WIDTH 800
+# define HEIGHT 600
 # define KEYUP 3
 # define KEYDOWN 2
 # define ESC 53
@@ -24,7 +24,6 @@
 # define BACKWARD 1
 # define L_ARROW 123
 # define R_ARROW 124
-# define DOOR 14
 # define RUN 257
 # define SCREENSHOT 105
 # define ABS(Value) (Value < 0) ? -Value : Value
@@ -115,6 +114,7 @@ typedef	struct	s_ray
 typedef	struct	s_sac
 {
 	int				column;
+	t_img			sprite;
 	t_ray			ray;
 }				t_sac;
 
@@ -144,7 +144,13 @@ typedef	struct	s_data
 	t_img		tmp_etext;
 	t_img		tmp_wtext;
 	t_img		sprite;
+	t_img		sprite2;
+	t_img		sprite3;
+	t_img		sprite4;
+	t_img		tmp_sprite2;
 	t_img		tmp_sprite;
+	t_img		tmp_sprite3;
+	t_img		tmp_sprite4;
 	t_obj		*obj;
 	pid_t		music;
 	int			check;
@@ -171,7 +177,7 @@ t_img			resize_image(t_data *data, t_img *src, int width, int height);
 void			load_textures(t_data *data);
 void			load_background(t_data *data);
 void			crt_window(t_data *data);
-void			*create_obj(t_data *data, t_obj **obj, int column);
+void			*create_obj(t_data *data, t_obj **obj, int column, char c);
 void			free_obj(t_obj *obj);
 void			print_objects(t_data *data, int column, int i);
 long            dark(int color, double walldist);

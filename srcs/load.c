@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 17:46:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/08 00:05:11 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/08 04:38:14 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 void	load_textures(t_data *data)
 {
 	data->ntext.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			"./textures/ntext.xpm",
+			"./textures/pickle_rick.xpm",
 						&(data->ntext.width), &(data->ntext.height));
 	data->stext.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			"./textures/stext.xpm",
+			"./textures/portal.xpm",
 						&(data->stext.width), &(data->stext.height));
 	data->etext.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			"./textures/etext.xpm",
+			"./textures/vindicators.xpm",
 						&(data->etext.width), &(data->etext.height));
 	data->wtext.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			"./textures/wtext.xpm",
+			"./textures/oowee.xpm",
 						&(data->wtext.width), &(data->wtext.height));
 	data->tmp_ntext = resize_image(data, &data->ntext, 750, 750);
 	mlx_destroy_image(data->mlx.ptr, data->ntext.ptr);
@@ -43,7 +43,7 @@ void	load_textures(t_data *data)
 void	load_background(t_data *data)
 {
 	data->ciel.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			"./textures/ciel.xpm",
+			"./textures/space.xpm",
 						&(data->ciel.width), &(data->ciel.height));
 	data->sol.ptr = mlx_xpm_file_to_image(data->mlx.ptr, "./textures/sol.xpm",
 						&(data->sol.width), &(data->sol.height));
@@ -54,11 +54,29 @@ void	load_background(t_data *data)
 	mlx_destroy_image(data->mlx.ptr, data->sol.ptr);
 	data->sol = data->tmp_sol;
 	data->sprite.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			"./textures/sprite.xpm",
+			"./textures/rick.xpm",
 			&(data->sprite.width), &(data->sprite.height));
 	data->tmp_sprite = resize_image(data, &data->sprite, 750, 750);
 	mlx_destroy_image(data->mlx.ptr, data->sprite.ptr);
 	data->sprite = data->tmp_sprite;
+	data->sprite2.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
+			"./textures/morty.xpm",
+			&(data->sprite2.width), &(data->sprite2.height));
+	data->tmp_sprite2 = resize_image(data, &data->sprite2, 750, 750);
+	mlx_destroy_image(data->mlx.ptr, data->sprite2.ptr);
+	data->sprite2 = data->tmp_sprite2;
+	data->sprite3.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
+			"./textures/squanch.xpm",
+			&(data->sprite3.width), &(data->sprite3.height));
+	data->tmp_sprite3 = resize_image(data, &data->sprite3, 750, 750);
+	mlx_destroy_image(data->mlx.ptr, data->sprite3.ptr);
+	data->sprite3 = data->tmp_sprite3;
+	data->sprite4.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
+			"./textures/meeseeks.xpm",
+			&(data->sprite4.width), &(data->sprite4.height));
+	data->tmp_sprite4 = resize_image(data, &data->sprite4, 750, 750);
+	mlx_destroy_image(data->mlx.ptr, data->sprite4.ptr);
+	data->sprite4 = data->tmp_sprite4;
 }
 
 void	crt_window(t_data *data)
