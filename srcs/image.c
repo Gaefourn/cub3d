@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 17:34:29 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/19 21:14:40 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/19 22:31:42 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,10 @@ void			crt_column(t_data *data, int column)
 	i--;
 	while (++i < HEIGHT)
 	{
-	//	if (data->parse.floor_tex)
+		if (data->parse.floor_tex)
 			data->img.buffer[column + (i * (data->img.size / sizeof(int)))] = data->sol.buffer[column + ((i - (HEIGHT / 2)) * (data->img.size / 4))];
-	//	else
-	//		data->img.buffer[column + (i * (data->img.size / 4))] = floor_col;
+		else
+			data->img.buffer[column + (i * (data->img.size / 4))] =
+				data->parse.floor_col;
 	}
 }

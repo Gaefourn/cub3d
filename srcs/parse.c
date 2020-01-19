@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 16:42:55 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/19 21:34:28 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/19 22:42:50 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 long	create_hex(char *str)
 {
-	int	r;
-	int	g;
-	int	b;
-	int	i;
-	long color;
+	int		r;
+	int		g;
+	int		b;
+	int		i;
+	long	color;
 
 	i = 0;
 	r = 256;
@@ -32,13 +32,13 @@ long	create_hex(char *str)
 	while (str[i] == ' ' || str[i] == '\t' || str[i] == ',')
 		i++;
 	if (str[i] >= '0' && str[i] <= '9')
-		g = ft_atoi(str);
+		g = ft_atoi(str + i);
 	while (str[i] >= '0' && str[i] <= '9')
 		i++;
 	while (str[i] == ' ' || str[i] == '\t' || str[i] == ',')
 		i++;
 	if (str[i] >= '0' && str[i] <= '9')
-		b = ft_atoi(str);
+		b = ft_atoi(str + i);
 	if (!((r >= 0 && r <= 255) || !(g >= 0 && g <= 255)
 				|| !(b >= 0 && b <= 255)))
 	{
@@ -47,7 +47,7 @@ long	create_hex(char *str)
 			free(str);
 		exit(0);
 	}
-	color = ((r << 16) + (g << 8) + b);
+	color = (r << 16) + (g << 8) + b;
 	return (color);
 }
 
@@ -111,7 +111,7 @@ void	parse_tex(char *str, char **tex, t_bool *check)
 
 void	parse_floor(char *str, t_parse *parse, t_bool *check)
 {
-	int i;
+	int		i;
 
 	i = 1;
 	if (str[i] != ' ' && str[i] != '\t')

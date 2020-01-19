@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 17:46:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/19 19:55:59 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/19 21:46:52 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,17 @@ void	load_background(t_data *data)
 	data->ciel.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
 			"./textures/space.xpm",
 						&(data->ciel.width), &(data->ciel.height));
-	data->sol.ptr = mlx_xpm_file_to_image(data->mlx.ptr, "./textures/sol.xpm",
-						&(data->sol.width), &(data->sol.height));
 	data->tmp_ciel = resize_image(data, &data->ciel, WIDTH, HEIGHT / 2);
 	mlx_destroy_image(data->mlx.ptr, data->ciel.ptr);
 	data->ciel = data->tmp_ciel;
-	data->tmp_sol = resize_image(data, &data->sol, WIDTH, HEIGHT / 2);
-	mlx_destroy_image(data->mlx.ptr, data->sol.ptr);
-	data->sol = data->tmp_sol;
+	if (data->parse.floor_tex)
+	{
+		data->sol.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
+		data->parse.floor_tex, &(data->sol.width), &(data->sol.height));
+		data->tmp_sol = resize_image(data, &data->sol, WIDTH, HEIGHT / 2);
+		mlx_destroy_image(data->mlx.ptr, data->sol.ptr);
+		data->sol = data->tmp_sol;
+	}
 	data->sprite.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
 			"./textures/rick.xpm",
 			&(data->sprite.width), &(data->sprite.height));
