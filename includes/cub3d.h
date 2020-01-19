@@ -6,7 +6,7 @@
 /*   By: glaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 03:33:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/19 21:18:41 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/19 23:47:41 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,5 +210,7 @@ void			print_obj(t_data *data, t_obj *obj);
 int				parse(char *path, t_parse *parse);
 int				ft_atoi(const char *nptr);
 void			init_parse(t_parse *parse);
+void			parse_sky(char *str, t_parse *parse, t_bool *check);
+long			create_hex(char *str);
 
 #endif

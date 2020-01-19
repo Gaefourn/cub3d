@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 17:34:29 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/19 22:31:42 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/19 23:49:45 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,11 @@ void			crt_column(t_data *data, int column)
 	texture = get_texture(data);
 	while (++i < data->ray.start)
 	{
-	//	if (data->parse.sky_tex)
+		if (data->parse.sky_tex)
 			data->img.buffer[column + (i * (data->img.size / 4))] = data->ciel.buffer[column + (i * (data->img.size / 4))];
-	//	else
-	//		data->img.buffer[column + (i * (data->img.size / 4))] = sky_col;
+		else
+			data->img.buffer[column + (i * (data->img.size / 4))] =
+				data->parse.sky_col;
 	}
 	i--;
 	while (++i < data->ray.end)

@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 17:46:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/19 21:46:52 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/19 23:59:09 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 void	load_textures(t_data *data)
 {
 	data->ntext.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			"./textures/pickle_rick.xpm",
+			data->parse.no_tex,
 						&(data->ntext.width), &(data->ntext.height));
 	data->stext.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			"./textures/portal.xpm",
+			data->parse.so_tex,
 						&(data->stext.width), &(data->stext.height));
 	data->etext.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			"./textures/vindicators.xpm",
+			data->parse.ea_tex,
 						&(data->etext.width), &(data->etext.height));
 	data->wtext.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			"./textures/oowee.xpm",
+			data->parse.we_tex,
 						&(data->wtext.width), &(data->wtext.height));
 	data->tmp_ntext = resize_image(data, &data->ntext, 750, 750);
 	mlx_destroy_image(data->mlx.ptr, data->ntext.ptr);
@@ -42,12 +42,15 @@ void	load_textures(t_data *data)
 
 void	load_background(t_data *data)
 {
-	data->ciel.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			"./textures/space.xpm",
+	if (data->parse.sky_tex)
+	{
+		data->ciel.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
+			data->parse.sky_tex,
 						&(data->ciel.width), &(data->ciel.height));
-	data->tmp_ciel = resize_image(data, &data->ciel, WIDTH, HEIGHT / 2);
-	mlx_destroy_image(data->mlx.ptr, data->ciel.ptr);
-	data->ciel = data->tmp_ciel;
+		data->tmp_ciel = resize_image(data, &data->ciel, WIDTH, HEIGHT / 2);
+		mlx_destroy_image(data->mlx.ptr, data->ciel.ptr);
+		data->ciel = data->tmp_ciel;
+	}
 	if (data->parse.floor_tex)
 	{
 		data->sol.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
@@ -57,7 +60,7 @@ void	load_background(t_data *data)
 		data->sol = data->tmp_sol;
 	}
 	data->sprite.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			"./textures/rick.xpm",
+			data->parse.sprite_tex,
 			&(data->sprite.width), &(data->sprite.height));
 	data->tmp_sprite = resize_image(data, &data->sprite, 750, 750);
 	mlx_destroy_image(data->mlx.ptr, data->sprite.ptr);

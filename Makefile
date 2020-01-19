@@ -28,7 +28,8 @@ SRC_NAME =	main.c \
 			get_next_line.c \
 			parse.c \
 			ft_atoi.c \
-			get_next_line_utils.c
+			get_next_line_utils.c \
+			parse2.c
 SRC      =	$(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
 DEP  = $(OBJ:%.o=%.d)

@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 16:42:55 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/19 22:42:50 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/19 23:47:48 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,9 +176,9 @@ int		parse(char *path, t_parse *parse)
 			parse_tex(buffer, &parse->sprite_tex, &parse->check_sprite);
 		else if (buffer[i] == 'F')
 			parse_floor(buffer, parse, &parse->check_floor);
-	/*	else if (buffer[i] == 'C' && parse.check_sky == FALSE)
-			parse_sky(buffer, &parse);
-		else if (buffer[i] == '1')
+		else if (buffer[i] == 'C')
+			parse_sky(buffer, parse, &parse->check_sky);
+	/*	else if (buffer[i] == '1')
 			FILL_MAP;*/
 	}
 	return (0);

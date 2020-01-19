@@ -4,4 +4,5 @@ SO./textures/portal.xpm
 EA ./textures/vindicators.xpm
 WE ./textures/oowee.xpm
 S ./textures/rick.xpm
-F 255,0,0
+F ./textures/sol.xpm
+C ./textures/space.xpm
