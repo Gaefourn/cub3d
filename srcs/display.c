@@ -6,13 +6,13 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 22:13:24 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/08 03:31:48 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/19 20:16:21 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	*crt_img(t_data *data)
+void			*crt_img(t_data *data)
 {
 	int	x;
 
@@ -25,7 +25,13 @@ void	*crt_img(t_data *data)
 	return (data->img.buffer);
 }
 
-t_img	resize_image(t_data *data, t_img *src, int width, int height)
+static	void	norme(t_img *dst, int width, int height)
+{
+	dst->height = height;
+	dst->width = width;
+}
+
+t_img			resize_image(t_data *data, t_img *src, int width, int height)
 {
 	t_img	dst;
 	double	size_x;
@@ -47,11 +53,9 @@ t_img	resize_image(t_data *data, t_img *src, int width, int height)
 		while (++x < width)
 		{
 			dst.buffer[x + (y * dst.size / 4)] =
-				src->buffer[(int)(((int)(x * size_x) + ((int)(y * size_y) *
-								(src->size / 4))))];
+src->buffer[(int)(((int)(x * size_x) + ((int)(y * size_y) * (src->size / 4))))];
 		}
 	}
-	dst.height = height;
-	dst.width = width;
+	norme(&dst, width, height);
 	return (dst);
 }

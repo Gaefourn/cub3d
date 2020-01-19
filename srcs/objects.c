@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:47:43 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/08 04:14:55 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/19 16:40:56 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	print_obj(t_data *data, t_obj *obj)
 			int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX))
 					* obj->sac.sprite.width / spriteWidth) / 256;
 			if (transformY > 0 && stripe > 0 && stripe < WIDTH
-					&& transformY < data->ZBuffer[stripe])
+					&& transformY < data->zbuffer[stripe])
 			{
 				y = drawStartY - 1;
 				while (++y < drawEndY)

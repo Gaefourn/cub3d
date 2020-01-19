@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 17:34:29 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/08 03:43:03 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/19 21:14:40 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,12 @@ void			crt_column(t_data *data, int column)
 	i = -1;
 	texture = get_texture(data);
 	while (++i < data->ray.start)
-		data->img.buffer[column + (i * (data->img.size / 4))] = data->ciel.buffer[column + (i * (data->img.size / 4))];
-		//		print_objects(data, column, i);
+	{
+	//	if (data->parse.sky_tex)
+			data->img.buffer[column + (i * (data->img.size / 4))] = data->ciel.buffer[column + (i * (data->img.size / 4))];
+	//	else
+	//		data->img.buffer[column + (i * (data->img.size / 4))] = sky_col;
+	}
 	i--;
 	while (++i < data->ray.end)
 	{
@@ -106,9 +110,9 @@ void			crt_column(t_data *data, int column)
 	i--;
 	while (++i < HEIGHT)
 	{
-//		if ((((data->img.buffer[column + (i * (data->img.size / sizeof(int)))] =
-//			trans(data->img.buffer[column + ((data->ray.end
-//							- (i - data->ray.end)) * (data->img.size / sizeof(int)))], data, i)) << 6) & 0xFF) == 0)
-		data->img.buffer[column + (i * (data->img.size / sizeof(int)))] = data->sol.buffer[column + ((i - (HEIGHT / 2)) * (data->img.size / 4))];
+	//	if (data->parse.floor_tex)
+			data->img.buffer[column + (i * (data->img.size / sizeof(int)))] = data->sol.buffer[column + ((i - (HEIGHT / 2)) * (data->img.size / 4))];
+	//	else
+	//		data->img.buffer[column + (i * (data->img.size / 4))] = floor_col;
 	}
 }

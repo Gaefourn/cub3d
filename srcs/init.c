@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 22:15:49 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/08 04:54:38 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/19 20:10:51 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,18 @@ void	ft_init(t_data *data)
 	data->perso.plany = 0;
 	data->obj = NULL;
 	ft_init_map(data);
+}
+
+void    init_parse(t_parse *parse)
+{
+    parse->check_res = FALSE;
+    parse->check_no = FALSE;
+    parse->check_so = FALSE;
+    parse->check_we = FALSE;
+    parse->check_ea = FALSE;
+    parse->check_floor = FALSE;
+    parse->check_sky = FALSE;
+    parse->check_sprite = FALSE;
+    parse->width = 0;
+    parse->height = 0;
 }

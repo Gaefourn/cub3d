@@ -24,7 +24,11 @@ SRC_NAME =	main.c \
 			load.c \
 			image.c \
 			objects.c \
-			screenshot.c
+			screenshot.c \
+			get_next_line.c \
+			parse.c \
+			ft_atoi.c \
+			get_next_line_utils.c
 SRC      =	$(addprefix $(SRC_PATH)/,$(SRC_NAME))
 
 DEP  = $(OBJ:%.o=%.d)

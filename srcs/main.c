@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 01:57:37 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/08 04:55:35 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/19 21:20:48 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,18 @@ int		exit_properly(char *error_msg)
 	int	i;
 
 	i = 0;
-//	system("killall afplay");
-		while (error_msg[i])
-			++i;
-		write(2, error_msg, i);
-		write(2, "\n", 1);
-		exit(1);
+	while (error_msg[i])
+		++i;
+	write(2, error_msg, i);
+	exit(1);
 	exit(0);
 }
 
 int		key(int key, t_data *data)
 {
-	printf("%d\n", key);
+	printf("key == %d\n", key);
 	if (key == ESC)
-		exit_properly("Cub3d s'est correctement eteint");
+		exit_properly("Cub3d s'est correctement eteint.\n");
 	else if (key == FORWARD)
 		data->event.forward ^= 1;
 	else if (key == BACKWARD)
@@ -57,9 +55,6 @@ int		key(int key, t_data *data)
 
 void	put_image_to_window(t_data *data)
 {
-//	mlx_put_image_to_window(data->mlx.ptr, data->mlx.win, data->ciel.ptr, 0, 0);
-//	mlx_put_image_to_window(data->mlx.ptr, data->mlx.win,
-//			data->sol.ptr, 0, HEIGHT / 2);
 	mlx_put_image_to_window(data->mlx.ptr, data->mlx.win, data->img.ptr, 0, 0);
 }
 
@@ -100,19 +95,25 @@ int		ft_move(t_data *data)
 	return (0);
 }
 
-int		main(void)
+int		main(int ac, char **av)
 {
 	t_data data;
 
+	if (ac < 2 || ac > 3)
+	{
+		write(2, "Error,\nWrong numbers of argument.\n", 34);
+		return (0);
+	}
+	parse(av[1], &data.parse);
 	ft_init(&data);
 	crt_window(&data);
 	load_background(&data);
 	load_textures(&data);
-//	system("afplay sounds/bgm.mp3 &");
 	mlx_do_key_autorepeatoff(data.mlx.ptr);
 	mlx_hook(data.mlx.win, KEYDOWN, 0, key, &data);
 	mlx_hook(data.mlx.win, KEYUP, 0, key, &data);
-	mlx_hook(data.mlx.win, QUIT, 0, exit_properly, &data);
+	mlx_hook(data.mlx.win, QUIT, 0, exit_properly,
+		"Cub3d s'est correctement eteint.\n");
 	mlx_loop_hook(data.mlx.ptr, ft_move, &data);
 	mlx_loop(data.mlx.ptr);
 	return (0);

@@ -6,14 +6,14 @@
 /*   By: glaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 03:33:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/08 04:57:00 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/19 21:18:41 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 900
+# define HEIGHT 700
 # define KEYUP 3
 # define KEYDOWN 2
 # define ESC 53
@@ -111,6 +111,29 @@ typedef	struct	s_ray
 	int			heightline;
 }				t_ray;
 
+typedef	struct	s_parse
+{
+	t_bool		check_res;
+	t_bool		check_no;
+	t_bool		check_so;
+	t_bool		check_we;
+	t_bool		check_ea;
+	t_bool		check_sprite;
+	t_bool		check_floor;
+	t_bool		check_sky;
+	int			width;
+	int			height;
+	char*		no_tex;
+	char*		so_tex;
+	char*		we_tex;
+	char*		ea_tex;
+	char*		sprite_tex;
+	char*		sky_tex;
+	char*		floor_tex;
+	long		sky_col;
+	long		floor_col;
+}				t_parse;
+
 typedef	struct	s_sac
 {
 	int				column;
@@ -155,7 +178,8 @@ typedef	struct	s_data
 	pid_t		music;
 	int			check;
 	char		**map;
-	double		ZBuffer[WIDTH];
+	double		zbuffer[WIDTH];
+	t_parse		parse;
 }				t_data;
 
 void			*crt_img(t_data *data);
@@ -180,8 +204,11 @@ void			crt_window(t_data *data);
 void			*create_obj(t_data *data, t_obj **obj, int column, char c);
 void			free_obj(t_obj *obj);
 void			print_objects(t_data *data, int column, int i);
-long            dark(int color, double walldist);
+long			dark(int color, double walldist);
 void			screenshot(t_data *data);
 void			print_obj(t_data *data, t_obj *obj);
+int				parse(char *path, t_parse *parse);
+int				ft_atoi(const char *nptr);
+void			init_parse(t_parse *parse);
 
 #endif
