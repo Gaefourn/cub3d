@@ -48,33 +48,33 @@ void	print_obj(t_data *data, t_obj *obj)
 				data->perso.dir.x * spriteY);
 		double transformY = invDet * (-data->perso.plany * spriteX +
 				data->perso.planx * spriteY);
-		int spriteScreenX = (int)((WIDTH / 2) * (1 + transformX / transformY));
-		int spriteHeight = ABS((int)(HEIGHT / transformY));
-		int drawStartY = -spriteHeight / 2 + HEIGHT / 2;
+		int spriteScreenX = (int)((data->parse.width / 2) * (1 + transformX / transformY));
+		int spriteHeight = ABS((int)(data->parse.height / transformY));
+		int drawStartY = -spriteHeight / 2 + data->parse.height / 2;
 		if(drawStartY < 0)
 			drawStartY = 0;
-		int drawEndY = spriteHeight / 2 + HEIGHT / 2;
-		if(drawEndY >= HEIGHT)
-			drawEndY = HEIGHT - 1;
-		int spriteWidth = ABS((int)(HEIGHT / (transformY)));
+		int drawEndY = spriteHeight / 2 + data->parse.height / 2;
+		if(drawEndY >= data->parse.height)
+			drawEndY = data->parse.height - 1;
+		int spriteWidth = ABS((int)(data->parse.height / (transformY)));
 		int drawStartX = -spriteWidth / 2 + spriteScreenX;
 		if(drawStartX < 0)
 			drawStartX = 0;
 		int drawEndX = spriteWidth / 2 + spriteScreenX;
-		if(drawEndX >= WIDTH)
-			drawEndX = WIDTH - 1;
+		if(drawEndX >= data->parse.width)
+			drawEndX = data->parse.width - 1;
 		stripe = drawStartX - 1;
 		while (++stripe < drawEndX)
 		{
 			int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX))
 					* obj->sac.sprite.width / spriteWidth) / 256;
-			if (transformY > 0 && stripe > 0 && stripe < WIDTH
+			if (transformY > 0 && stripe > 0 && stripe < data->parse.width
 					&& transformY < data->zbuffer[stripe])
 			{
 				y = drawStartY - 1;
 				while (++y < drawEndY)
 				{
-					int d = y * 256 - HEIGHT * 128 + spriteHeight * 128;
+					int d = y * 256 - data->parse.height * 128 + spriteHeight * 128;
 					int texY = ((d * obj->sac.sprite.height) / spriteHeight) / 256;
 					int color = dark(obj->sac.sprite.buffer[(obj->sac.sprite.width *
 							texY + texX)], obj->sac.ray.walldist);

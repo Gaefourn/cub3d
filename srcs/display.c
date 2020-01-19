@@ -17,7 +17,7 @@ void			*crt_img(t_data *data)
 	int	x;
 
 	x = -1;
-	while (++x < WIDTH)
+	while (++x < data->parse.width)
 	{
 		raycasting(data, x);
 		crt_column(data, x);

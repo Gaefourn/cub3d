@@ -6,14 +6,12 @@
 /*   By: glaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 03:33:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/19 23:47:41 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 00:15:41 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-# define WIDTH 900
-# define HEIGHT 700
 # define KEYUP 3
 # define KEYDOWN 2
 # define ESC 53
@@ -178,8 +176,8 @@ typedef	struct	s_data
 	pid_t		music;
 	int			check;
 	char		**map;
-	double		zbuffer[WIDTH];
 	t_parse		parse;
+	double		*zbuffer;
 }				t_data;
 
 void			*crt_img(t_data *data);

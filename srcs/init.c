@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 22:15:49 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/19 20:10:51 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 00:17:34 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_ray(t_data *data, int x)
 {
-	data->ray.camera = (2 * x / (double)WIDTH) - 1;
+	data->ray.camera = (2 * x / (double)data->parse.width) - 1;
 	data->ray.dirx = data->perso.dir.x + data->perso.planx * data->ray.camera;
 	data->ray.diry = data->perso.dir.y + data->perso.plany * data->ray.camera;
 	data->ray.mapx = (int)data->perso.pos.x;
@@ -50,6 +50,11 @@ void	ft_init(t_data *data)
 	data->event.screenshot = 0;
 	data->perso.planx = 0;
 	data->perso.plany = 0;
+	if (!(data->zbuffer = malloc(sizeof(double) * data->parse.width)))
+	{
+		write(2, "Malloc error.\n", 14);
+		exit(0);
+	}
 	data->obj = NULL;
 	ft_init_map(data);
 }

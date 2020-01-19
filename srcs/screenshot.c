@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 21:01:51 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/06 00:09:39 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 00:11:54 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	int_in_char(unsigned char *str, int value)
 		str[i] = (unsigned char)(value >> (i * 8));
 }
 
-static int	write_header(int fd, unsigned int fd_size)
+static int	write_header(int fd, unsigned int fd_size, t_data *data)
 {
 	unsigned char	header[54];
 	int				i;
@@ -34,25 +34,25 @@ static int	write_header(int fd, unsigned int fd_size)
 	int_in_char(header + 2, fd_size);
 	header[10] = (unsigned char)(54);
 	header[14] = (unsigned char)(40);
-	int_in_char(header + 18, WIDTH);
-	int_in_char(header + 22, -HEIGHT);
+	int_in_char(header + 18, data->parse.width);
+	int_in_char(header + 22, -data->parse.height);
 	header[26] = (unsigned char)(1);
 	header[28] = (unsigned char)(24);
 	return (write(fd, header, 54));
 }
 
-static int	write_screen(t_data *data, int fd, unsigned int pad_byte_row)
+int	write_screen(t_data *data, int fd, unsigned int pad_byte_row)
 {
 	const unsigned char	zeroes[3] = {0, 0, 0};
 	int					y;
 	int					x;
 
 	y = -1;
-	while (++y < HEIGHT)
+	while (++y < data->parse.height)
 	{
 		x = -1;
-		while (++x < WIDTH)
-			if (write(fd, &data->img.buffer[y * WIDTH + x], 3) < 0)
+		while (++x < data->parse.width)
+			if (write(fd, &data->img.buffer[y * data->parse.width + x], 3) < 0)
 				return (0);
 		if (write(fd, &zeroes, pad_byte_row) < 0)
 			return (0);
@@ -67,14 +67,14 @@ void		screenshot(t_data *data)
 	unsigned int	pxl_byte_row;
 	unsigned int	pad_byte_row;
 
-	pxl_byte_row = WIDTH * 3;
+	pxl_byte_row = data->parse.width * 3;
 	pad_byte_row = (4 - (pxl_byte_row % 4)) % 4;
-	fd_size = 54 + (pxl_byte_row + pad_byte_row) * HEIGHT;
+	fd_size = 54 + (pxl_byte_row + pad_byte_row) * data->parse.height;
 	if ((fd = open("./screenshot/screenshot.bmp", O_WRONLY | O_CREAT
 		| O_TRUNC, S_IRUSR |
 		S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH)) < 0)
 		write(2, "error\n", 6);
-	if (write_header(fd, fd_size) < 0)
+	if (write_header(fd, fd_size, data) < 0)
 		write(2, "error\n", 6);
 	if (!write_screen(data, fd, pad_byte_row))
 		write(2, "error\n", 6);

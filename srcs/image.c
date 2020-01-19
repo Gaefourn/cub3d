@@ -55,7 +55,7 @@ long			trans(int color, t_data *data, int i)
 
 	byte = (unsigned char *)&color;
 	calcul = ((data->ray.walldist / 10.5) + 1);
-	calcul2 = (i * ((data->ray.end - data->ray.start) / HEIGHT) +
+	calcul2 = (i * ((data->ray.end - data->ray.start) / data->parse.height) +
 			(data->ray.walldist)) * 16.5;
 	*byte = *byte / calcul;
 	++byte;
@@ -109,10 +109,10 @@ void			crt_column(t_data *data, int column)
 		crt_wall(data, column, i, rend);
 	}
 	i--;
-	while (++i < HEIGHT)
+	while (++i < data->parse.height)
 	{
 		if (data->parse.floor_tex)
-			data->img.buffer[column + (i * (data->img.size / sizeof(int)))] = data->sol.buffer[column + ((i - (HEIGHT / 2)) * (data->img.size / 4))];
+			data->img.buffer[column + (i * (data->img.size / sizeof(int)))] = data->sol.buffer[column + ((i - (data->parse.height / 2)) * (data->img.size / 4))];
 		else
 			data->img.buffer[column + (i * (data->img.size / 4))] =
 				data->parse.floor_col;

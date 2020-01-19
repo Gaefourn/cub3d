@@ -1,4 +1,4 @@
-R 700 500
+R 900 700
 NO ./textures/pickle_rick.xpm
 SO./textures/portal.xpm
 EA ./textures/vindicators.xpm
