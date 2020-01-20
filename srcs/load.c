@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 17:46:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 03:07:48 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 05:44:51 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	load_background(t_data *data)
 		data->ciel.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
 			data->parse.sky_tex,
 						&(data->ciel.width), &(data->ciel.height));
-		data->tmp_ciel = resize_image(data, &data->ciel, data->parse.width, data->parse.height / 2);
+		data->tmp_ciel = resize_image(data, &data->ciel, data->parse.width,
+			data->parse.height / 2);
 		mlx_destroy_image(data->mlx.ptr, data->ciel.ptr);
 		data->ciel = data->tmp_ciel;
 	}
@@ -55,7 +56,8 @@ void	load_background(t_data *data)
 	{
 		data->sol.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
 		data->parse.floor_tex, &(data->sol.width), &(data->sol.height));
-		data->tmp_sol = resize_image(data, &data->sol, data->parse.width, data->parse.height / 2);
+		data->tmp_sol = resize_image(data, &data->sol, data->parse.width,
+			data->parse.height / 2);
 		mlx_destroy_image(data->mlx.ptr, data->sol.ptr);
 		data->sol = data->tmp_sol;
 	}
@@ -88,8 +90,10 @@ void	load_background(t_data *data)
 void	crt_window(t_data *data)
 {
 	data->mlx.ptr = mlx_init();
-	data->mlx.win = mlx_new_window(data->mlx.ptr, data->parse.width, data->parse.height, "Cub3d");
-	data->img.ptr = mlx_new_image(data->mlx.ptr, data->parse.width, data->parse.height);
+	data->mlx.win = mlx_new_window(data->mlx.ptr, data->parse.width,
+			data->parse.height, "Cub3d");
+	data->img.ptr = mlx_new_image(data->mlx.ptr, data->parse.width,
+			data->parse.height);
 	data->img.buffer = (int*)mlx_get_data_addr(data->img.ptr, &data->img.bpp,
 										&data->img.size, &data->img.endian);
 }

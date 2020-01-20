@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 02:37:01 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 04:25:45 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 05:34:15 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,36 +47,74 @@ int		check_line(char *buffer)
 	return (0);
 }
 
-void	ft_set_char(t_data *data, char c)
-{
-	data->perso.dir.x = -1 * (c == 'S' ? -1 : c == 'N');
-    data->perso.dir.y = -1 * (c == 'E' ? -1 : c == 'O');
-    data->perso.planx = 0.66 * (c == 'O' ? -1 : c == 'E');
-    data->perso.plany = 0.66 * (c == 'S' ? -1 : c == 'N');
-}
-
-void	check_char(t_data *data)
+void	norme_create_hex(char *str, int *r, int *g, int *b)
 {
 	int i;
-	int j;
 
 	i = 0;
-	while (i < data->num_line)
-	{
-		j = 0;
-		while (j < data->size_line)
-		{
-			if (data->map[i][j] == 'N' || data->map[i][j] == 'S' ||
-			data->map[i][j] == 'W' || data->map[i][j] == 'E')
-			{
-				ft_set_char(data, data->map[i][j]);
-				data->map[i][j] = '0';
-				data->perso.pos.x = (double)i + 0.5;
-				data->perso.pos.y = (double)j + 0.5;
-			}
-			j++;
-		}
+	if (str[i] >= '0' && str[i] <= '9')
+		*r = ft_atoi(str);
+	while (str[i] >= '0' && str[i] <= '9')
 		i++;
-	}
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == ',')
+		i++;
+	if (str[i] >= '0' && str[i] <= '9')
+		*g = ft_atoi(str + i);
+	while (str[i] >= '0' && str[i] <= '9')
+		i++;
+	while (str[i] == ' ' || str[i] == '\t' || str[i] == ',')
+		i++;
+	if (str[i] >= '0' && str[i] <= '9')
+		*b = ft_atoi(str + i);
 }
 
+int		norme_main_parse(char *buffer, t_parse *parse)
+{
+	int	i;
+
+	i = 0;
+	if (buffer[i] == 'R')
+		parse_res(buffer, parse, &parse->check_res);
+	else if (buffer[i] == 'N' && buffer[i + 1] == 'O')
+		parse_tex(buffer, &parse->no_tex, &parse->check_no);
+	else if (buffer[i] == 'S' && buffer[i + 1] == 'O')
+		parse_tex(buffer, &parse->so_tex, &parse->check_so);
+	else if (buffer[i] == 'W' && buffer[i + 1] == 'E')
+		parse_tex(buffer, &parse->we_tex, &parse->check_we);
+	else if (buffer[i] == 'E' && buffer[i + 1] == 'A')
+		parse_tex(buffer, &parse->ea_tex, &parse->check_ea);
+	else if (buffer[i] == 'S')
+		parse_tex(buffer, &parse->sprite_tex, &parse->check_sprite);
+	else if (buffer[i] == 'F')
+		parse_floor(buffer, parse, &parse->check_floor);
+	else if (buffer[i] == 'C')
+		parse_sky(buffer, parse, &parse->check_sky);
+	else
+		return (0);
+	return (1);
+}
+
+void	norme_main_parse2(char *buffer, t_parse *parse, t_data *data)
+{
+	int i;
+
+	i = 0;
+	if (!(norme_main_parse(buffer, parse)))
+	{
+		if (buffer[i] == '1' && parse->check_floor == TRUE &&
+parse->check_sky == TRUE && parse->check_no == TRUE && parse->check_so == TRUE
+		&& parse->check_ea == TRUE && parse->check_we == TRUE)
+		{
+			read_map(data, buffer);
+			data->actu_line++;
+		}
+		else if (check_line(buffer) == 0)
+			;
+		else
+		{
+			write(2, "Oops, somethng went wrong lul.\n", 30);
+			free(buffer);
+			exit(0);
+		}
+	}
+}

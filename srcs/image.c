@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 17:34:29 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 03:06:12 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 05:43:59 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,16 +74,16 @@ static void		crt_wall(t_data *data, int column, int i, int *rend)
 {
 	if (data->ray.side == 1)
 		data->img.buffer[column + (i * (data->img.size / sizeof(int)))] =
-			dark(rend[(int)(((data->ray.walldist * data->ray.dirx + data->perso.pos.x
-								- (int)(data->ray.walldist * data->ray.dirx + data->perso.pos.x)) * 750) +
-						(int)((int)((i - data->ray.truestart) * (750 / (double)data->ray.heightline)) *
-							(data->ntext.size / sizeof(int))))], data->ray.walldist);
+dark(rend[(int)(((data->ray.walldist * data->ray.dirx + data->perso.pos.x
+	- (int)(data->ray.walldist * data->ray.dirx + data->perso.pos.x)) * 750) +
+(int)((int)((i - data->ray.truestart) * (750 / (double)data->ray.heightline)) *
+(data->ntext.size / sizeof(int))))], data->ray.walldist);
 	else
 		data->img.buffer[column + (i * (data->img.size / sizeof(int)))] =
-			dark(rend[(int)(((data->ray.walldist * data->ray.diry + data->perso.pos.y
-								- (int)(data->ray.walldist * data->ray.diry + data->perso.pos.y)) * 750) +
-						(int)((int)((i - data->ray.truestart) * (750 / (double)data->ray.heightline)) *
-							(data->ntext.size / sizeof(int))))], data->ray.walldist);
+dark(rend[(int)(((data->ray.walldist * data->ray.diry + data->perso.pos.y
+	- (int)(data->ray.walldist * data->ray.diry + data->perso.pos.y)) * 750) +
+(int)((int)((i - data->ray.truestart) * (750 / (double)data->ray.heightline)) *
+(data->ntext.size / sizeof(int))))], data->ray.walldist);
 }
 
 void			crt_column(t_data *data, int column)
@@ -97,7 +97,8 @@ void			crt_column(t_data *data, int column)
 	while (++i < data->ray.start)
 	{
 		if (data->parse.sky_tex)
-			data->img.buffer[column + (i * (data->img.size / 4))] = data->ciel.buffer[column + (i * (data->img.size / 4))];
+			data->img.buffer[column + (i * (data->img.size / 4))] =
+			data->ciel.buffer[column + (i * (data->img.size / 4))];
 		else
 			data->img.buffer[column + (i * (data->img.size / 4))] =
 				data->parse.sky_col;
@@ -112,7 +113,9 @@ void			crt_column(t_data *data, int column)
 	while (++i < data->parse.height)
 	{
 		if (data->parse.floor_tex)
-			data->img.buffer[column + (i * (data->img.size / sizeof(int)))] = data->sol.buffer[column + ((i - (data->parse.height / 2)) * (data->img.size / 4))];
+			data->img.buffer[column + (i * (data->img.size / sizeof(int)))] =
+		data->sol.buffer[column + ((i - (data->parse.height / 2)) *
+			(data->img.size / 4))];
 		else
 			data->img.buffer[column + (i * (data->img.size / 4))] =
 				data->parse.floor_col;

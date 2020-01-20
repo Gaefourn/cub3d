@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 22:15:49 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 04:24:32 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 05:39:19 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	ft_init(t_data *data)
 	data->size_line = 0;
 	data->num_line = 0;
 	data->actu_line = 0;
-//	ft_init_map(data);
 	if (!(data->zbuffer = malloc(sizeof(double) * data->parse.width)))
 	{
 		write(2, "Malloc error.\n", 14);
@@ -56,16 +55,16 @@ void	ft_init(t_data *data)
 	data->obj = NULL;
 }
 
-void    init_parse(t_parse *parse)
+void	init_parse(t_parse *parse)
 {
-    parse->check_res = FALSE;
-    parse->check_no = FALSE;
-    parse->check_so = FALSE;
-    parse->check_we = FALSE;
-    parse->check_ea = FALSE;
-    parse->check_floor = FALSE;
-    parse->check_sky = FALSE;
-    parse->check_sprite = FALSE;
-    parse->width = 0;
-    parse->height = 0;
+	parse->check_res = FALSE;
+	parse->check_no = FALSE;
+	parse->check_so = FALSE;
+	parse->check_we = FALSE;
+	parse->check_ea = FALSE;
+	parse->check_floor = FALSE;
+	parse->check_sky = FALSE;
+	parse->check_sprite = FALSE;
+	parse->width = 0;
+	parse->height = 0;
 }

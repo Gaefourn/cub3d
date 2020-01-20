@@ -6,7 +6,7 @@
 /*   By: glaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 03:33:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 04:04:03 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 05:47:39 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,14 @@ void			read_map(t_data *data, char *buffer);
 void			set_num_line(t_data *data, char *path);
 int				check_line(char *buffer);
 void			check_char(t_data *data);
-void			ft_fill_map(t_data *data);
-void    *ft_init_map(t_data *data);
+void			norme_create_hex(char *str, int *r, int *g, int *b);
+int				norme_main_parse(char *buffer, t_parse *parse);
+void			norme_parse_sky(char *str, t_bool *check);
+void			norme_main_parse2(char *buffer, t_parse *parse, t_data *data);
+void			parse_res(char *str, t_parse *parse, t_bool *check);
+void			parse_tex(char *str, char **tex, t_bool *check);
+void			parse_floor(char *str, t_parse *parse, t_bool *check);
+void			parse_sky(char *str, t_parse *parse, t_bool *check);
+void			norme_parse_floor(char *str, t_bool *check);
 
 #endif

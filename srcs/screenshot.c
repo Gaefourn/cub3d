@@ -6,13 +6,13 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 21:01:51 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 00:11:54 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 05:08:29 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	int_in_char(unsigned char *str, int value)
+void		int_in_char(unsigned char *str, int value)
 {
 	int i;
 
@@ -21,7 +21,7 @@ static void	int_in_char(unsigned char *str, int value)
 		str[i] = (unsigned char)(value >> (i * 8));
 }
 
-static int	write_header(int fd, unsigned int fd_size, t_data *data)
+int			write_header(int fd, unsigned int fd_size, t_data *data)
 {
 	unsigned char	header[54];
 	int				i;
@@ -41,7 +41,7 @@ static int	write_header(int fd, unsigned int fd_size, t_data *data)
 	return (write(fd, header, 54));
 }
 
-int	write_screen(t_data *data, int fd, unsigned int pad_byte_row)
+int			write_screen(t_data *data, int fd, unsigned int pad_byte_row)
 {
 	const unsigned char	zeroes[3] = {0, 0, 0};
 	int					y;

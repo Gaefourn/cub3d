@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 21:07:22 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 04:03:08 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 04:49:50 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	check_objs(t_data *data, int x)
 		data->map[data->ray.mapx][data->ray.mapy] == '4' ||
 		data->map[data->ray.mapx][data->ray.mapy] == '5' ||
 		data->map[data->ray.mapx][data->ray.mapy] == '6')
-		create_obj(data, &data->obj , x, data->map[data->ray.mapx][data->ray.mapy]);
+		create_obj(data, &data->obj, x,
+		data->map[data->ray.mapx][data->ray.mapy]);
 }
 
 void	raycasting(t_data *data, int x)
@@ -86,10 +87,13 @@ void	wall_dist(t_data *data)
 		data->ray.walldist = ABS((data->ray.mapy - data->perso.pos.y + (
 						1 - data->ray.stepy) / 2) / data->ray.diry);
 	data->ray.heightline = data->parse.height / data->ray.walldist;
-	data->ray.start = (int)(-(data->ray.heightline / 2) + data->parse.height / 2);
+	data->ray.start = (int)(-(data->ray.heightline / 2) +
+			data->parse.height / 2);
 	data->ray.end = (int)((data->ray.heightline / 2) + data->parse.height / 2);
-	data->ray.truestart = (int)(-(data->ray.heightline / 2) + data->parse.height / 2);
-	data->ray.trueend = (int)((data->ray.heightline / 2) + data->parse.height / 2);
+	data->ray.truestart = (int)(-(data->ray.heightline / 2) +
+			data->parse.height / 2);
+	data->ray.trueend = (int)((data->ray.heightline / 2) +
+			data->parse.height / 2);
 	if (data->ray.start < 0)
 		data->ray.start = 0;
 	if (data->ray.end >= data->parse.height)

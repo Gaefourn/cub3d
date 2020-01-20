@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 16:42:55 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 04:26:49 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 05:49:00 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,7 @@ long	create_hex(char *str)
 	r = 256;
 	g = 256;
 	b = 256;
-	if (str[i] >= '0' && str[i] <= '9')
-		r = ft_atoi(str);
-	while (str[i] >= '0' && str[i] <= '9')
-		i++;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == ',')
-		i++;
-	if (str[i] >= '0' && str[i] <= '9')
-		g = ft_atoi(str + i);
-	while (str[i] >= '0' && str[i] <= '9')
-		i++;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == ',')
-		i++;
-	if (str[i] >= '0' && str[i] <= '9')
-		b = ft_atoi(str + i);
+	norme_create_hex(str, &r, &g, &b);
 	if (!((r >= 0 && r <= 255) || !(g >= 0 && g <= 255)
 				|| !(b >= 0 && b <= 255)))
 	{
@@ -109,23 +96,10 @@ void	parse_tex(char *str, char **tex, t_bool *check)
 
 void	parse_floor(char *str, t_parse *parse, t_bool *check)
 {
-	int		i;
+	int	i;
 
 	i = 1;
-	if (str[i] != ' ' && str[i] != '\t')
-	{
-		write(2, "Error\nFloor color or texture's path is invalid.\n", 48);
-		if (str)
-			free(str);
-		exit(0);
-	}
-	if (*check == TRUE)
-	{
-		write(2, "Error,\nThere is more than one path for floor.\n", 46);
-		if (str)
-			free(str);
-		exit(0);
-	}
+	norme_parse_floor(str, check);
 	while (str[i] == ' ' || str[i] == '\t')
 		i++;
 	if (str[i] >= '0' && str[i] <= '9')
@@ -151,7 +125,6 @@ int		parse(char *path, t_parse *parse, t_data *data)
 	char	*buffer;
 	int		ret;
 	int		fd;
-	int		i;
 
 	init_parse(parse);
 	fd = open(path, O_RDONLY);
@@ -164,39 +137,8 @@ int		parse(char *path, t_parse *parse, t_data *data)
 	}
 	while ((ret = get_next_line(fd, &buffer)) > 0)
 	{
-		i = 0;
-		if (buffer[i] == 'R')
-			parse_res(buffer, parse, &parse->check_res);
-		else if (buffer[i] == 'N' && buffer[i + 1] == 'O')
-			parse_tex(buffer, &parse->no_tex, &parse->check_no);
-		else if (buffer[i] == 'S' && buffer[i + 1] == 'O')
-			parse_tex(buffer, &parse->so_tex, &parse->check_so);
-		else if (buffer[i] == 'W' && buffer[i + 1] == 'E')
-			parse_tex(buffer, &parse->we_tex, &parse->check_we);
-		else if (buffer[i] == 'E' && buffer[i + 1] == 'A')
-			parse_tex(buffer, &parse->ea_tex, &parse->check_ea);
-		else if (buffer[i] == 'S')
-			parse_tex(buffer, &parse->sprite_tex, &parse->check_sprite);
-		else if (buffer[i] == 'F')
-			parse_floor(buffer, parse, &parse->check_floor);
-		else if (buffer[i] == 'C')
-			parse_sky(buffer, parse, &parse->check_sky);
-		else if (buffer[i] == '1' && parse->check_floor == TRUE &&
-parse->check_sky == TRUE && parse->check_no == TRUE && parse->check_so == TRUE
-&& parse->check_ea == TRUE && parse->check_we == TRUE)
-		{
-			read_map(data, buffer);
-			data->actu_line++;
-		}
-		else if (check_line(buffer) == 0)
-			;
-		else
-		{
-			write(2, "Oops, somethng went wrong lul.\n", 30);
-			free(buffer);
-			exit(0);
-		}
-	//	free(buffer);
+		norme_main_parse2(buffer, parse, data);
+		//free(buffer);
 	}
 	if (*buffer)
 		free(buffer);
