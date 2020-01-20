@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 22:12:13 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/19 16:59:18 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 03:56:38 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	*ft_init_map(t_data *data)
 		i++;
 	if (!(data->map = malloc(sizeof(char*) * i + 1)))
 		return (NULL);
+
 	i = 0;
 	while (G_BUFFER[i])
 	{

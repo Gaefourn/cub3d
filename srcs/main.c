@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 01:57:37 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/19 21:40:14 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 03:05:15 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int		exit_properly(char *error_msg)
 
 int		key(int key, t_data *data)
 {
-	printf("key == %d\n", key);
 	if (key == ESC)
 		exit_properly("Cub3d s'est correctement eteint.\n");
 	else if (key == FORWARD)
@@ -104,7 +103,7 @@ int		main(int ac, char **av)
 		write(2, "Error,\nWrong numbers of argument.\n", 34);
 		return (0);
 	}
-	parse(av[1], &data.parse);
+	parse(av[1], &data.parse, &data);
 	ft_init(&data);
 	crt_window(&data);
 	load_background(&data);

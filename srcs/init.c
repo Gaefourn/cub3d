@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 22:15:49 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 00:17:34 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 04:04:20 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,16 @@ void	ft_init(t_data *data)
 	data->event.screenshot = 0;
 	data->perso.planx = 0;
 	data->perso.plany = 0;
+	data->size_line = 0;
+	data->num_line = 0;
+	data->actu_line = 0;
+	ft_init_map(data);
 	if (!(data->zbuffer = malloc(sizeof(double) * data->parse.width)))
 	{
 		write(2, "Malloc error.\n", 14);
 		exit(0);
 	}
 	data->obj = NULL;
-	ft_init_map(data);
 }
 
 void    init_parse(t_parse *parse)

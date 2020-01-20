@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 16:42:55 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/19 23:47:48 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 04:02:02 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	parse_res(char *str, t_parse *parse, t_bool *check)
 	while (str[i] >= '0' && str[i] <= '9' && str[i])
 		i++;
 	parse->height = ft_atoi(str + i);
-	printf("width %d\nheight %d\n", parse->width, parse->height);
 	if (parse->width <= 0 || parse->height <= 0)
 	{
 		write(2, "Error,\nInvalid resolution.\n", 27);
@@ -98,7 +97,6 @@ void	parse_tex(char *str, char **tex, t_bool *check)
 		i++;
 	if (str[i] == '.' && str[i + 1] == '/')
 		*tex = str + i;
-	printf("%s\n", *tex);
 	if (open(*tex, O_RDONLY) == -1)
 	{
 		write(2, "Error,\nAt least one texture path is invalid.\n", 45);
@@ -133,12 +131,10 @@ void	parse_floor(char *str, t_parse *parse, t_bool *check)
 	if (str[i] >= '0' && str[i] <= '9')
 	{
 		parse->floor_col = create_hex(str + i);
-		printf("floor color = %lx\n", parse->floor_col);
 	}
 	else if (str[i] == '.' && str[i + 1] == '/')
 	{
 		parse->floor_tex = str + i;
-		printf("floor texture %s\n", parse->floor_tex);
 		if (open(parse->floor_tex, O_RDONLY) == -1)
 		{
 			write(2, "Error,\nFloor's texture is invalid.\n", 35);
@@ -150,15 +146,22 @@ void	parse_floor(char *str, t_parse *parse, t_bool *check)
 	*check = TRUE;
 }
 
-int		parse(char *path, t_parse *parse)
+int		parse(char *path, t_parse *parse, t_data *data)
 {
-	char	*buffer = NULL;
+	char	*buffer;
 	int		ret;
 	int		fd;
 	int		i;
 
 	init_parse(parse);
 	fd = open(path, O_RDONLY);
+	set_num_line(data, path);
+	buffer = NULL;
+	if (!(data->map2 = malloc(sizeof(char *) * data->num_line + 1)))
+	{
+		write(2, "Error,\nMalloc failed.\n", 21);
+		exit(0);
+	}
 	while ((ret = get_next_line(fd, &buffer)) > 0)
 	{
 		i = 0;
@@ -178,8 +181,26 @@ int		parse(char *path, t_parse *parse)
 			parse_floor(buffer, parse, &parse->check_floor);
 		else if (buffer[i] == 'C')
 			parse_sky(buffer, parse, &parse->check_sky);
-	/*	else if (buffer[i] == '1')
-			FILL_MAP;*/
+		else if (buffer[i] == '1' && parse->check_floor == TRUE &&
+parse->check_sky == TRUE && parse->check_no == TRUE && parse->check_so == TRUE
+&& parse->check_ea == TRUE && parse->check_we == TRUE)
+		{
+			read_map(data, buffer);
+			data->actu_line++;
+		}
+		else if (check_line(buffer) == 0)
+			;
+		else
+		{
+			write(2, "Oops, somethng went wrong lul.\n", 30);
+			free(buffer);
+			exit(0);
+		}
+	//	free(buffer);
 	}
+	if (*buffer)
+		free(buffer);
+	check_char(data);
+	printf("pos x = %f || pos y = %f\n", data->perso.pos.x, data->perso.pos.y);
 	return (0);
 }

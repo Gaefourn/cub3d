@@ -6,7 +6,7 @@
 /*   By: glaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 03:33:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 00:15:41 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 04:04:03 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,11 @@ typedef	struct	s_data
 	pid_t		music;
 	int			check;
 	char		**map;
+	char		**map2;
 	t_parse		parse;
+	int			size_line;
+	int			num_line;
+	int			actu_line;
 	double		*zbuffer;
 }				t_data;
 
@@ -187,8 +191,6 @@ void			raycast_value(t_data *data, int x);
 void			wall_dist(t_data *data);
 void			init_ray(t_data *data, int x);
 void			ft_init(t_data *data);
-void			*ft_init_map(t_data *data);
-void			ft_fill_map(t_data *data);
 void			move_forward(t_data *data);
 void			move_backward(t_data *data);
 void			move_left(t_data *data);
@@ -205,10 +207,16 @@ void			print_objects(t_data *data, int column, int i);
 long			dark(int color, double walldist);
 void			screenshot(t_data *data);
 void			print_obj(t_data *data, t_obj *obj);
-int				parse(char *path, t_parse *parse);
+int				parse(char *path, t_parse *parse, t_data *data);
 int				ft_atoi(const char *nptr);
 void			init_parse(t_parse *parse);
 void			parse_sky(char *str, t_parse *parse, t_bool *check);
 long			create_hex(char *str);
+void			read_map(t_data *data, char *buffer);
+void			set_num_line(t_data *data, char *path);
+int				check_line(char *buffer);
+void			check_char(t_data *data);
+void			ft_fill_map(t_data *data);
+void    *ft_init_map(t_data *data);
 
 #endif
