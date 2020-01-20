@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 16:42:55 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 04:02:02 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 04:26:49 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ int		parse(char *path, t_parse *parse, t_data *data)
 	fd = open(path, O_RDONLY);
 	set_num_line(data, path);
 	buffer = NULL;
-	if (!(data->map2 = malloc(sizeof(char *) * data->num_line + 1)))
+	if (!(data->map = malloc(sizeof(char *) * data->num_line + 1)))
 	{
 		write(2, "Error,\nMalloc failed.\n", 21);
 		exit(0);
@@ -201,6 +201,5 @@ parse->check_sky == TRUE && parse->check_no == TRUE && parse->check_so == TRUE
 	if (*buffer)
 		free(buffer);
 	check_char(data);
-	printf("pos x = %f || pos y = %f\n", data->perso.pos.x, data->perso.pos.y);
 	return (0);
 }

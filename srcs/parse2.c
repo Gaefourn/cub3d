@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 23:43:31 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 04:02:09 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 04:12:35 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,9 +131,9 @@ void	read_map(t_data *data, char *buffer)
 			if (buffer)
 				free(buffer);
 			while (++i < data->actu_line)
-				free(data->map2[i]);
-			free(data->map2);
+				free(data->map[i]);
+			free(data->map);
 			exit(0);
 		}
-	data->map2[data->actu_line] = str;
+	data->map[data->actu_line] = str;
 }

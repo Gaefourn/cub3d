@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 02:37:01 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 04:02:51 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/20 04:25:45 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ void	check_char(t_data *data)
 		j = 0;
 		while (j < data->size_line)
 		{
-			if (data->map2[i][j] == 'N' || data->map2[i][j] == 'S' ||
-			data->map2[i][j] == 'W' || data->map2[i][j] == 'E')
+			if (data->map[i][j] == 'N' || data->map[i][j] == 'S' ||
+			data->map[i][j] == 'W' || data->map[i][j] == 'E')
 			{
-				ft_set_char(data, data->map2[i][j]);
-//				data->map2[i][j] = '0';
-//				data->perso.pos.x = (double)i + 0.5;
-//				data->perso.pos.y = (double)j + 0.5;
+				ft_set_char(data, data->map[i][j]);
+				data->map[i][j] = '0';
+				data->perso.pos.x = (double)i + 0.5;
+				data->perso.pos.y = (double)j + 0.5;
 			}
 			j++;
 		}
