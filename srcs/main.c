@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 01:57:37 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/22 04:11:11 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/22 06:06:08 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,11 @@ int				main(int ac, char **av)
 	if (ac < 2 || ac > 3)
 	{
 		write(2, "Error,\nWrong numbers of argument.\n", 34);
+		return (0);
+	}
+	if (parse_arg(av[1]) == -1)
+	{
+		write(2, "Error,\nMap file is invalid.\n", 28);
 		return (0);
 	}
 	parse(av[1], &data.parse, &data);

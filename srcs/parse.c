@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 16:42:55 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/21 23:55:29 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/22 06:15:58 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	parse_tex(char *str, char **tex, t_bool *check)
 		i++;
 	if (str[i] == '.' && str[i + 1] == '/')
 		*tex = ft_strdup(str + i);
-	if (open(*tex, O_RDONLY) == -1)
+	if (check_folder(*tex) == -1)
 	{
 		write(2, "Error,\nAt least one texture path is invalid.\n", 45);
 		if (str)
@@ -109,7 +109,7 @@ void	parse_floor(char *str, t_parse *parse, t_bool *check)
 	else if (str[i] == '.' && str[i + 1] == '/')
 	{
 		parse->floor_tex = ft_strdup(str + i);
-		if (open(parse->floor_tex, O_RDONLY) == -1)
+		if (check_folder(parse->floor_tex) == -1)
 		{
 			write(2, "Error,\nFloor's texture is invalid.\n", 35);
 			if (str)

@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 23:43:31 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/22 00:10:03 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/22 06:18:43 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	parse_sky(char *str, t_parse *parse, t_bool *check)
 	else if (str[i] == '.' && str[i + 1] == '/')
 	{
 		parse->sky_tex = ft_strdup(str + i);
-		if (open(parse->sky_tex, O_RDONLY) == -1)
+		if (check_folder(parse->sky_tex) == -1)
 		{
 			write(2, "Error,\nSky's texture is invalid.\n", 33);
 			if (str)

@@ -6,7 +6,7 @@
 /*   By: glaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 03:33:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/22 04:52:48 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/22 06:00:20 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,5 +250,8 @@ void			norme_parse_floor(char *str, t_bool *check);
 void			init_idobj2(t_data *data);
 void			norme_obj(t_data *data, t_obj *obj, int y, int stripe);
 double			ft_abs(double nb);
+int				parse_arg(char *str);
+int				ft_strlen(char *str);
+int				check_folder(char *str);
 
 #endif
