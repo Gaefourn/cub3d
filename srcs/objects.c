@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:47:43 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/22 02:55:58 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/22 04:33:28 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	init_idobj(t_data *data, t_obj *obj)
 			data->idobj.spritex + data->perso.planx * data->idobj.spritey);
 	data->idobj.spritescreenx = (int)((data->parse.width / 2) *
 			(1 + data->idobj.transformx / data->idobj.transformy));
-	data->idobj.spriteheight = ABS((int)(data->parse.height /
+	data->idobj.spriteheight = ft_abs((int)(data->parse.height /
 				data->idobj.transformy));
 	data->idobj.drawstarty = -data->idobj.spriteheight / 2 +
 		data->parse.height / 2;
@@ -54,7 +54,7 @@ void	init_idobj(t_data *data, t_obj *obj)
 		data->parse.height / 2;
 	if (data->idobj.drawendy >= data->parse.height)
 		data->idobj.drawendy = data->parse.height - 1;
-	data->idobj.spritewidth = ABS((int)(data->parse.height /
+	data->idobj.spritewidth = ft_abs((int)(data->parse.height /
 				(data->idobj.transformy)));
 	init_idobj2(data);
 }

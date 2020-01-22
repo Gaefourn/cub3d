@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 21:07:22 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 04:49:50 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/22 04:35:49 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ void	raycast_value(t_data *data, int x)
 void	wall_dist(t_data *data)
 {
 	if (data->ray.side == 0)
-		data->ray.walldist = ABS((data->ray.mapx - data->perso.pos.x +
+		data->ray.walldist = ft_abs(((int)data->ray.mapx - data->perso.pos.x +
 					(1 - data->ray.stepx) / 2) / data->ray.dirx);
 	else
-		data->ray.walldist = ABS((data->ray.mapy - data->perso.pos.y + (
+		data->ray.walldist = ft_abs(((int)data->ray.mapy - data->perso.pos.y + (
 						1 - data->ray.stepy) / 2) / data->ray.diry);
 	data->ray.heightline = data->parse.height / data->ray.walldist;
 	data->ray.start = (int)(-(data->ray.heightline / 2) +

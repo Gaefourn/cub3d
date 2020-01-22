@@ -6,7 +6,7 @@
 /*   By: glaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 03:33:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/22 02:47:28 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/22 04:52:48 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # define ACTION 14
 # define RUN 257
 # define SCREENSHOT 105
-# define ABS(Value) (Value < 0) ? -Value : Value
 
 # include "mlx.h"
 # include <stdlib.h>
@@ -110,7 +109,7 @@ typedef	struct	s_ray
 	int			heightline;
 }				t_ray;
 
-typedef	struct	s_parse
+typedef struct	s_parse
 {
 	t_bool		check_res;
 	t_bool		check_no;
@@ -122,22 +121,22 @@ typedef	struct	s_parse
 	t_bool		check_sky;
 	int			width;
 	int			height;
-	char*		no_tex;
-	char*		so_tex;
-	char*		we_tex;
-	char*		ea_tex;
-	char*		sprite_tex;
-	char*		sky_tex;
-	char*		floor_tex;
+	char		*no_tex;
+	char		*so_tex;
+	char		*we_tex;
+	char		*ea_tex;
+	char		*sprite_tex;
+	char		*sky_tex;
+	char		*floor_tex;
 	long		sky_col;
 	long		floor_col;
 }				t_parse;
 
 typedef	struct	s_sac
 {
-	int				column;
-	t_img			sprite;
-	t_ray			ray;
+	int			column;
+	t_img		sprite;
+	t_ray		ray;
 }				t_sac;
 
 typedef struct	s_obj
@@ -250,5 +249,6 @@ void			parse_sky(char *str, t_parse *parse, t_bool *check);
 void			norme_parse_floor(char *str, t_bool *check);
 void			init_idobj2(t_data *data);
 void			norme_obj(t_data *data, t_obj *obj, int y, int stripe);
+double			ft_abs(double nb);
 
 #endif

@@ -6,11 +6,13 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/07 15:06:21 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/19 22:04:11 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/22 04:38:37 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_atoi(const char *nptr)
+#include "cub3d.h"
+
+int		ft_atoi(const char *nptr)
 {
 	int nb;
 	int i;
@@ -35,5 +37,11 @@ int	ft_atoi(const char *nptr)
 	}
 	if (neg > 0)
 		return (-nb);
+	return (nb);
+}
+
+double	ft_abs(double nb)
+{
+	(nb < 0) ? nb = nb * -1 : 1;
 	return (nb);
 }
