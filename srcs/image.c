@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 17:34:29 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 05:43:59 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/22 01:57:55 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,29 +47,6 @@ long			dark(int color, double walldist)
 	return ((long)color);
 }
 
-long			trans(int color, t_data *data, int i)
-{
-	unsigned char	*byte;
-	double			calcul;
-	double			calcul2;
-
-	byte = (unsigned char *)&color;
-	calcul = ((data->ray.walldist / 10.5) + 1);
-	calcul2 = (i * ((data->ray.end - data->ray.start) / data->parse.height) +
-			(data->ray.walldist)) * 16.5;
-	*byte = *byte / calcul;
-	++byte;
-	*byte = *byte / calcul;
-	++byte;
-	*byte = *byte / calcul;
-	++byte;
-	if (*byte + calcul2 < 255 && i < 2 * data->ray.end - data->ray.start)
-		*byte += calcul2;
-	else
-		*byte = 255;
-	return ((long)color);
-}
-
 static void		crt_wall(t_data *data, int column, int i, int *rend)
 {
 	if (data->ray.side == 1)
@@ -86,29 +63,28 @@ dark(rend[(int)(((data->ray.walldist * data->ray.diry + data->perso.pos.y
 (data->ntext.size / sizeof(int))))], data->ray.walldist);
 }
 
+static void		crt_sky(t_data *data, int i, int column)
+{
+	if (data->parse.sky_tex)
+		data->img.buffer[column + (i * (data->img.size / 4))] =
+			data->ciel.buffer[column + (i * (data->img.size / 4))];
+	else
+		data->img.buffer[column + (i * (data->img.size / 4))] =
+			data->parse.sky_col;
+}
+
 void			crt_column(t_data *data, int column)
 {
 	int		i;
 	int		*texture;
-	int		*rend;
 
 	i = -1;
 	texture = get_texture(data);
 	while (++i < data->ray.start)
-	{
-		if (data->parse.sky_tex)
-			data->img.buffer[column + (i * (data->img.size / 4))] =
-			data->ciel.buffer[column + (i * (data->img.size / 4))];
-		else
-			data->img.buffer[column + (i * (data->img.size / 4))] =
-				data->parse.sky_col;
-	}
+		crt_sky(data, i, column);
 	i--;
 	while (++i < data->ray.end)
-	{
-		rend = texture;
-		crt_wall(data, column, i, rend);
-	}
+		crt_wall(data, column, i, texture);
 	i--;
 	while (++i < data->parse.height)
 	{

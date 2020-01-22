@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 16:42:55 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 05:49:29 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/21 23:55:29 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	parse_tex(char *str, char **tex, t_bool *check)
 	while (str[i] == ' ' || str[i] == '\t')
 		i++;
 	if (str[i] == '.' && str[i + 1] == '/')
-		*tex = str + i;
+		*tex = ft_strdup(str + i);
 	if (open(*tex, O_RDONLY) == -1)
 	{
 		write(2, "Error,\nAt least one texture path is invalid.\n", 45);
@@ -108,7 +108,7 @@ void	parse_floor(char *str, t_parse *parse, t_bool *check)
 	}
 	else if (str[i] == '.' && str[i + 1] == '/')
 	{
-		parse->floor_tex = str + i;
+		parse->floor_tex = ft_strdup(str + i);
 		if (open(parse->floor_tex, O_RDONLY) == -1)
 		{
 			write(2, "Error,\nFloor's texture is invalid.\n", 35);
@@ -138,9 +138,9 @@ int		parse(char *path, t_parse *parse, t_data *data)
 	while ((ret = get_next_line(fd, &buffer)) > 0)
 	{
 		norme_main_parse2(buffer, parse, data);
-		//free(buffer);
+		free(buffer);
 	}
-	if (*buffer)
+	if (ret == 0)
 		free(buffer);
 	check_char(data);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 02:37:01 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 05:34:15 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/21 23:54:26 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	set_num_line(t_data *data, char *path)
 			data->num_line++;
 		free(buffer);
 	}
-	if (buffer)
+	if (ret == 0)
 		free(buffer);
 }
 
@@ -113,7 +113,8 @@ parse->check_sky == TRUE && parse->check_no == TRUE && parse->check_so == TRUE
 		else
 		{
 			write(2, "Oops, somethng went wrong lul.\n", 30);
-			free(buffer);
+			if (*buffer)
+				free(buffer);
 			exit(0);
 		}
 	}

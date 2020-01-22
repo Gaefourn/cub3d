@@ -24,6 +24,7 @@ SRC_NAME =	main.c \
 			load.c \
 			image.c \
 			objects.c \
+			objects2.c \
 			screenshot.c \
 			get_next_line.c \
 			parse.c \

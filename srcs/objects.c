@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 19:47:43 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 00:23:31 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/22 02:55:58 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,33 @@ void	sort_list(t_obj **obj)
 	}
 }
 
+void	init_idobj(t_data *data, t_obj *obj)
+{
+	data->idobj.spritex = obj->sac.ray.mapx - data->perso.pos.x + 0.5;
+	data->idobj.spritey = obj->sac.ray.mapy - data->perso.pos.y + 0.5;
+	data->idobj.invdet = 1.0 / (data->perso.planx * data->perso.dir.y -
+			data->perso.dir.x * data->perso.plany);
+	data->idobj.transformx = data->idobj.invdet * (data->perso.dir.y *
+			data->idobj.spritex - data->perso.dir.x * data->idobj.spritey);
+	data->idobj.transformy = data->idobj.invdet * (-data->perso.plany *
+			data->idobj.spritex + data->perso.planx * data->idobj.spritey);
+	data->idobj.spritescreenx = (int)((data->parse.width / 2) *
+			(1 + data->idobj.transformx / data->idobj.transformy));
+	data->idobj.spriteheight = ABS((int)(data->parse.height /
+				data->idobj.transformy));
+	data->idobj.drawstarty = -data->idobj.spriteheight / 2 +
+		data->parse.height / 2;
+	if (data->idobj.drawstarty < 0)
+		data->idobj.drawstarty = 0;
+	data->idobj.drawendy = data->idobj.spriteheight / 2 +
+		data->parse.height / 2;
+	if (data->idobj.drawendy >= data->parse.height)
+		data->idobj.drawendy = data->parse.height - 1;
+	data->idobj.spritewidth = ABS((int)(data->parse.height /
+				(data->idobj.transformy)));
+	init_idobj2(data);
+}
+
 void	print_obj(t_data *data, t_obj *obj)
 {
 	int	stripe;
@@ -40,50 +67,19 @@ void	print_obj(t_data *data, t_obj *obj)
 	sort_list(&obj);
 	while (obj)
 	{
-		double spriteX = obj->sac.ray.mapx - data->perso.pos.x + 0.5;
-		double spriteY = obj->sac.ray.mapy - data->perso.pos.y + 0.5;
-		double invDet = 1.0 / (data->perso.planx * data->perso.dir.y -
-				data->perso.dir.x * data->perso.plany);
-		double transformX = invDet * (data->perso.dir.y * spriteX -
-				data->perso.dir.x * spriteY);
-		double transformY = invDet * (-data->perso.plany * spriteX +
-				data->perso.planx * spriteY);
-		int spriteScreenX = (int)((data->parse.width / 2) * (1 + transformX / transformY));
-		int spriteHeight = ABS((int)(data->parse.height / transformY));
-		int drawStartY = -spriteHeight / 2 + data->parse.height / 2;
-		if(drawStartY < 0)
-			drawStartY = 0;
-		int drawEndY = spriteHeight / 2 + data->parse.height / 2;
-		if(drawEndY >= data->parse.height)
-			drawEndY = data->parse.height - 1;
-		int spriteWidth = ABS((int)(data->parse.height / (transformY)));
-		int drawStartX = -spriteWidth / 2 + spriteScreenX;
-		if(drawStartX < 0)
-			drawStartX = 0;
-		int drawEndX = spriteWidth / 2 + spriteScreenX;
-		if(drawEndX >= data->parse.width)
-			drawEndX = data->parse.width - 1;
-		stripe = drawStartX - 1;
-		while (++stripe < drawEndX)
+		init_idobj(data, obj);
+		stripe = data->idobj.drawstartx - 1;
+		while (++stripe < data->idobj.drawendx)
 		{
-			int texX = (int)(256 * (stripe - (-spriteWidth / 2 + spriteScreenX))
-					* obj->sac.sprite.width / spriteWidth) / 256;
-			if (transformY > 0 && stripe > 0 && stripe < data->parse.width
-					&& transformY < data->zbuffer[stripe])
+			data->idobj.texx = (int)(256 * (stripe -
+			(-data->idobj.spritewidth / 2 + data->idobj.spritescreenx))
+			* obj->sac.sprite.width / data->idobj.spritewidth) / 256;
+			if (data->idobj.transformy > 0 && stripe > 0 && stripe <
+		data->parse.width && data->idobj.transformy < data->zbuffer[stripe])
 			{
-				y = drawStartY - 1;
-				while (++y < drawEndY)
-				{
-					int d = y * 256 - data->parse.height * 128 + spriteHeight * 128;
-					int texY = ((d * obj->sac.sprite.height) / spriteHeight) / 256;
-					int color = dark(obj->sac.sprite.buffer[(obj->sac.sprite.width *
-							texY + texX)], obj->sac.ray.walldist);
-					if((color & 0x00FFFFFF) != 0)
-					{
-						data->img.buffer[stripe + (y *
-								(data->img.size / sizeof(int)))] = color;
-					}
-				}
+				y = data->idobj.drawstarty - 1;
+				while (++y < data->idobj.drawendy)
+					norme_obj(data, obj, y, stripe);
 			}
 		}
 		obj = obj->next;
@@ -121,7 +117,7 @@ void	free_obj(t_obj *obj)
 
 	while (obj)
 	{
-		tmp =  obj->next;
+		tmp = obj->next;
 		free(obj);
 		obj = tmp;
 	}

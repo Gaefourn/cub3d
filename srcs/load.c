@@ -6,13 +6,13 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 17:46:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 05:44:51 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/22 01:58:27 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	load_textures(t_data *data)
+void			load_textures(t_data *data)
 {
 	data->ntext.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
 			data->parse.no_tex,
@@ -40,7 +40,35 @@ void	load_textures(t_data *data)
 	data->wtext = data->tmp_wtext;
 }
 
-void	load_background(t_data *data)
+static void		load_background2(t_data *data)
+{
+	data->sprite.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
+			data->parse.sprite_tex,
+			&(data->sprite.width), &(data->sprite.height));
+	data->tmp_sprite = resize_image(data, &data->sprite, 1000, 1000);
+	mlx_destroy_image(data->mlx.ptr, data->sprite.ptr);
+	data->sprite = data->tmp_sprite;
+	data->sprite2.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
+			"./textures/morty.xpm",
+			&(data->sprite2.width), &(data->sprite2.height));
+	data->tmp_sprite2 = resize_image(data, &data->sprite2, 1000, 1000);
+	mlx_destroy_image(data->mlx.ptr, data->sprite2.ptr);
+	data->sprite2 = data->tmp_sprite2;
+	data->sprite3.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
+			"./textures/squanch.xpm",
+			&(data->sprite3.width), &(data->sprite3.height));
+	data->tmp_sprite3 = resize_image(data, &data->sprite3, 1000, 1000);
+	mlx_destroy_image(data->mlx.ptr, data->sprite3.ptr);
+	data->sprite3 = data->tmp_sprite3;
+	data->sprite4.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
+			"./textures/meeseeks.xpm",
+			&(data->sprite4.width), &(data->sprite4.height));
+	data->tmp_sprite4 = resize_image(data, &data->sprite4, 1000, 1000);
+	mlx_destroy_image(data->mlx.ptr, data->sprite4.ptr);
+	data->sprite4 = data->tmp_sprite4;
+}
+
+void			load_background(t_data *data)
 {
 	if (data->parse.sky_tex)
 	{
@@ -61,33 +89,10 @@ void	load_background(t_data *data)
 		mlx_destroy_image(data->mlx.ptr, data->sol.ptr);
 		data->sol = data->tmp_sol;
 	}
-	data->sprite.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			data->parse.sprite_tex,
-			&(data->sprite.width), &(data->sprite.height));
-	data->tmp_sprite = resize_image(data, &data->sprite, 750, 750);
-	mlx_destroy_image(data->mlx.ptr, data->sprite.ptr);
-	data->sprite = data->tmp_sprite;
-	data->sprite2.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			"./textures/morty.xpm",
-			&(data->sprite2.width), &(data->sprite2.height));
-	data->tmp_sprite2 = resize_image(data, &data->sprite2, 750, 750);
-	mlx_destroy_image(data->mlx.ptr, data->sprite2.ptr);
-	data->sprite2 = data->tmp_sprite2;
-	data->sprite3.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			"./textures/squanch.xpm",
-			&(data->sprite3.width), &(data->sprite3.height));
-	data->tmp_sprite3 = resize_image(data, &data->sprite3, 750, 750);
-	mlx_destroy_image(data->mlx.ptr, data->sprite3.ptr);
-	data->sprite3 = data->tmp_sprite3;
-	data->sprite4.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			"./textures/meeseeks.xpm",
-			&(data->sprite4.width), &(data->sprite4.height));
-	data->tmp_sprite4 = resize_image(data, &data->sprite4, 750, 750);
-	mlx_destroy_image(data->mlx.ptr, data->sprite4.ptr);
-	data->sprite4 = data->tmp_sprite4;
+	load_background2(data);
 }
 
-void	crt_window(t_data *data)
+void			crt_window(t_data *data)
 {
 	data->mlx.ptr = mlx_init();
 	data->mlx.win = mlx_new_window(data->mlx.ptr, data->parse.width,

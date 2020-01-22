@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 01:57:37 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 04:26:29 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/22 02:07:22 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <unistd.h>
 #include <math.h>
 
-int		exit_properly(char *error_msg)
+static int		exit_properly(char *error_msg)
 {
 	int	i;
 
@@ -29,7 +29,7 @@ int		exit_properly(char *error_msg)
 	exit(0);
 }
 
-int		key(int key, t_data *data)
+static int		key(int key, t_data *data)
 {
 	if (key == ESC)
 		exit_properly("Cub3d s'est correctement eteint.\n");
@@ -49,15 +49,12 @@ int		key(int key, t_data *data)
 		data->event.run ^= 1;
 	else if (key == SCREENSHOT)
 		data->event.screenshot ^= 1;
+	else if (key == ACTION)
+		data->event.door ^= 1;
 	return (0);
 }
 
-void	put_image_to_window(t_data *data)
-{
-	mlx_put_image_to_window(data->mlx.ptr, data->mlx.win, data->img.ptr, 0, 0);
-}
-
-int		ft_move(t_data *data)
+static void		ft_norme(t_data *data)
 {
 	if (data->event.forward == 1)
 		move_forward(data);
@@ -78,11 +75,16 @@ int		ft_move(t_data *data)
 					data->perso.speed))][(int)(data->perso.pos.y +
 								(data->perso.dir.y * data->perso.speed))] = '0';
 	if (data->event.run == 1)
-		data->perso.speed = 0.200;
+		data->perso.speed = 0.1200;
 	if (data->event.run != 1)
-		data->perso.speed = 0.086;
+		data->perso.speed = 0.0186;
 	if (data->event.screenshot == 1)
 		screenshot(data);
+}
+
+static int		ft_move(t_data *data)
+{
+	ft_norme(data);
 	crt_img(data);
 	if (data->obj)
 	{
@@ -90,11 +92,11 @@ int		ft_move(t_data *data)
 		free_obj(data->obj);
 		data->obj = NULL;
 	}
-	put_image_to_window(data);
+	mlx_put_image_to_window(data->mlx.ptr, data->mlx.win, data->img.ptr, 0, 0);
 	return (0);
 }
 
-int		main(int ac, char **av)
+int				main(int ac, char **av)
 {
 	t_data data;
 

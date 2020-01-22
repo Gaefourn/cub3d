@@ -6,7 +6,7 @@
 /*   By: glaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 03:33:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 05:47:39 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/22 02:47:28 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define BACKWARD 1
 # define L_ARROW 123
 # define R_ARROW 124
+# define ACTION 14
 # define RUN 257
 # define SCREENSHOT 105
 # define ABS(Value) (Value < 0) ? -Value : Value
@@ -145,6 +146,27 @@ typedef struct	s_obj
 	struct s_obj	*next;
 }				t_obj;
 
+typedef struct	s_idobj
+{
+	double		spritex;
+	double		spritey;
+	double		invdet;
+	double		transformx;
+	double		transformy;
+	int			spritescreenx;
+	int			spriteheight;
+	int			drawstarty;
+	int			drawstartx;
+	int			drawendy;
+	int			spritewidth;
+	int			drawspritex;
+	int			drawendx;
+	int			texx;
+	int			d;
+	int			texy;
+	int			color;
+}				t_idobj;
+
 typedef	struct	s_data
 {
 	t_perso		perso;
@@ -182,6 +204,7 @@ typedef	struct	s_data
 	int			num_line;
 	int			actu_line;
 	double		*zbuffer;
+	t_idobj		idobj;
 }				t_data;
 
 void			*crt_img(t_data *data);
@@ -225,5 +248,7 @@ void			parse_tex(char *str, char **tex, t_bool *check);
 void			parse_floor(char *str, t_parse *parse, t_bool *check);
 void			parse_sky(char *str, t_parse *parse, t_bool *check);
 void			norme_parse_floor(char *str, t_bool *check);
+void			init_idobj2(t_data *data);
+void			norme_obj(t_data *data, t_obj *obj, int y, int stripe);
 
 #endif

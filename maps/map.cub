@@ -4,8 +4,8 @@ SO./textures/portal.xpm
 EA ./textures/vindicators.xpm
 WE ./textures/oowee.xpm
 S ./textures/rick.xpm
-F 220,200,0
-C 0,100,255
+F ./textures/sol.xpm
+C ./textures/space.xpm
 
 
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
@@ -14,7 +14,7 @@ C 0,100,255
 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 1 0 0 0 5 0 0 0 0 0 0 0 0 0 0 0 0 1
 1 0 0 0 0 0 0 0 0 S 0 0 0 0 0 0 0 1
-1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 2 0 1
+1 0 0 0 0 0 3 0 0 0 0 0 0 0 0 2 0 1
 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 1 0 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 1
 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1

@@ -6,11 +6,12 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 23:43:31 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/20 05:37:20 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/22 00:10:03 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "get_next_line.h"
 
 void	parse_sky(char *str, t_parse *parse, t_bool *check)
 {
@@ -26,7 +27,7 @@ void	parse_sky(char *str, t_parse *parse, t_bool *check)
 	}
 	else if (str[i] == '.' && str[i + 1] == '/')
 	{
-		parse->sky_tex = str + i;
+		parse->sky_tex = ft_strdup(str + i);
 		if (open(parse->sky_tex, O_RDONLY) == -1)
 		{
 			write(2, "Error,\nSky's texture is invalid.\n", 33);
