@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 23:43:31 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/22 06:18:43 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/23 22:15:08 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void	read_map(t_data *data, char *buffer)
 	size = strlen_chelou(buffer);
 	if (!(str = malloc(sizeof(char) * size + 1)))
 		exit(0);
+	check_map_line(buffer, data);
 	treat_line(buffer, str);
 	if (data->size_line == 0)
 		data->size_line = size;

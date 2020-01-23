@@ -6,7 +6,7 @@
 /*   By: glaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 03:33:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/22 06:00:20 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/23 21:53:36 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,5 +253,7 @@ double			ft_abs(double nb);
 int				parse_arg(char *str);
 int				ft_strlen(char *str);
 int				check_folder(char *str);
+void			check_map_line(char *str, t_data *data);
+void			first_and_last(t_data *data, char *str);
 
 #endif

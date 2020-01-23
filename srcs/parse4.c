@@ -6,13 +6,13 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 05:19:25 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/22 06:22:12 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/23 22:10:26 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_folder(char *str)
+int		check_folder(char *str)
 {
 	int		ret;
 	int		fd;
@@ -36,7 +36,7 @@ int	check_folder(char *str)
 	return (0);
 }
 
-int	parse_arg(char *str)
+int		parse_arg(char *str)
 {
 	int		len;
 
@@ -46,4 +46,57 @@ int	parse_arg(char *str)
 			str[len - 4] != '.')
 		return (-1);
 	return (0);
+}
+
+void	first_and_last(t_data *data, char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		while (str[i] == ' ' || str[i] == '\t')
+			i++;
+		if (str[i] != '1')
+		{
+			write(2, "Error,\nMap is invalid.\n", 23);
+			free(str);
+			i = 0;
+			while (i < data->actu_line)
+			{
+				free(data->map[i]);
+				i++;
+			}
+			exit(0);
+		}
+		i++;
+	}
+}
+
+void	check_map_line(char *str, t_data *data)
+{
+	int	i;
+	int check;
+
+	i = 0;
+	check = ft_strlen(str);
+	if (data->actu_line == 0)
+		first_and_last(data, str);
+	else if (data->actu_line < data->num_line - 1)
+	{
+		if (str[check - 1] != '1')
+		{
+			write(2, "Error,\nMap is invalid.\n", 23);
+			free(str);
+			i = 0;
+			while (i < data->actu_line)
+			{
+				free(data->map[i]);
+				i++;
+			}
+			exit(0);
+		}
+	}
+	else if (data->actu_line == data->num_line - 1)
+		first_and_last(data, str);
 }
