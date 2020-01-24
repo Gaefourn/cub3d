@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 02:37:01 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/23 21:16:12 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/24 02:46:02 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,27 +68,27 @@ void	norme_create_hex(char *str, int *r, int *g, int *b)
 		*b = ft_atoi(str + i);
 }
 
-int		norme_main_parse(char *buffer, t_parse *parse)
+int		norme_main_parse(char *buffer, t_parse *parse, t_data *data)
 {
 	int	i;
 
 	i = 0;
 	if (buffer[i] == 'R')
-		parse_res(buffer, parse, &parse->check_res);
+		parse_res(buffer, parse, &parse->check_res, data);
 	else if (buffer[i] == 'N' && buffer[i + 1] == 'O')
-		parse_tex(buffer, &parse->no_tex, &parse->check_no);
+		parse_tex(buffer, &parse->no_tex, &parse->check_no, data);
 	else if (buffer[i] == 'S' && buffer[i + 1] == 'O')
-		parse_tex(buffer, &parse->so_tex, &parse->check_so);
+		parse_tex(buffer, &parse->so_tex, &parse->check_so, data);
 	else if (buffer[i] == 'W' && buffer[i + 1] == 'E')
-		parse_tex(buffer, &parse->we_tex, &parse->check_we);
+		parse_tex(buffer, &parse->we_tex, &parse->check_we, data);
 	else if (buffer[i] == 'E' && buffer[i + 1] == 'A')
-		parse_tex(buffer, &parse->ea_tex, &parse->check_ea);
+		parse_tex(buffer, &parse->ea_tex, &parse->check_ea, data);
 	else if (buffer[i] == 'S')
-		parse_tex(buffer, &parse->sprite_tex, &parse->check_sprite);
+		parse_tex(buffer, &parse->sprite_tex, &parse->check_sprite, data);
 	else if (buffer[i] == 'F')
-		parse_floor(buffer, parse, &parse->check_floor);
+		parse_floor(buffer, parse, &parse->check_floor, data);
 	else if (buffer[i] == 'C')
-		parse_sky(buffer, parse, &parse->check_sky);
+		parse_sky(buffer, parse, &parse->check_sky, data);
 	else
 		return (0);
 	return (1);
@@ -99,7 +99,7 @@ void	norme_main_parse2(char *buffer, t_parse *parse, t_data *data)
 	int i;
 
 	i = 0;
-	if (!(norme_main_parse(buffer, parse)))
+	if (!(norme_main_parse(buffer, parse, data)))
 	{
 		if (buffer[i] == '1' && parse->check_floor == TRUE &&
 parse->check_sky == TRUE && parse->check_no == TRUE && parse->check_so == TRUE
@@ -115,6 +115,7 @@ parse->check_sky == TRUE && parse->check_no == TRUE && parse->check_so == TRUE
 			write(2, "Oops, somethng went wrong lul.\n", 30);
 			if (*buffer)
 				free(buffer);
+			free_path(data);
 			exit(0);
 		}
 	}

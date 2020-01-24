@@ -6,13 +6,13 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 05:19:25 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/23 22:10:26 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/24 02:45:54 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		check_folder(char *str)
+int		check_folder(char *str, t_data *data)
 {
 	int		ret;
 	int		fd;
@@ -29,6 +29,7 @@ int		check_folder(char *str)
 	{
 		if (buff)
 			free(buff);
+		free_path(data);
 		return (-1);
 	}
 	if (buff)
@@ -36,12 +37,12 @@ int		check_folder(char *str)
 	return (0);
 }
 
-int		parse_arg(char *str)
+int		parse_arg(char *str, t_data *data)
 {
 	int		len;
 
 	len = ft_strlen(str);
-	check_folder(str);
+	check_folder(str, data);
 	if (str[len - 1] != 'b' && str[len - 2] != 'u' && str[len - 3] != 'c' &&
 			str[len - 4] != '.')
 		return (-1);
@@ -60,6 +61,7 @@ void	first_and_last(t_data *data, char *str)
 		if (str[i] != '1')
 		{
 			write(2, "Error,\nMap is invalid.\n", 23);
+			free_path(data);
 			free(str);
 			i = 0;
 			while (i < data->actu_line)
@@ -87,6 +89,7 @@ void	check_map_line(char *str, t_data *data)
 		if (str[check - 1] != '1')
 		{
 			write(2, "Error,\nMap is invalid.\n", 23);
+			free_path(data);
 			free(str);
 			i = 0;
 			while (i < data->actu_line)
@@ -99,4 +102,10 @@ void	check_map_line(char *str, t_data *data)
 	}
 	else if (data->actu_line == data->num_line - 1)
 		first_and_last(data, str);
+}
+
+void	norme_parse_res(int *width, int *height)
+{
+	*width > 2560 ? *width = 2560 : 1;
+	*height > 1440 ? *height = 1440 : 1;
 }

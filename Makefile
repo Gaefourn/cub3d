@@ -4,7 +4,7 @@ NAME     =	Cub3D
 CC       =	gcc
 
 #	Flags     #
-CFLAGS   =	-Wall -Wextra -O3 -Werror -g3 -fsanitize=address
+CFLAGS   =	-Wall -Wextra -Werror -O3#-g3 -fsanitize=address -O3
 GFLAGS   =	-lm -L$(MLX_PATH) -lmlx -I$(MLX_PATH) -framework OpenGL -framework Appkit
 
 # 	Headers   #
@@ -22,6 +22,7 @@ SRC_NAME =	main.c \
 			moves2.c \
 			raycasting.c \
 			load.c \
+			load2.c \
 			image.c \
 			objects.c \
 			objects2.c \
@@ -48,21 +49,12 @@ MLX_PATH =	./mlx
 MLX_LIB  =	libCub3d.a
 MLX      =	$(addprefix $(MLX_PATH)/,$(MLX_LIB))
 
-# unecessary vars  #
-SCRIPT_P =	./scripts
-PRINT    =	0
-
 ################################################################################
 
 all : $(MLX_LIB) $(NAME)
 
 $(MLX_LIB) :
-ifeq ($(PRINT), 0)
-	@sh $(SCRIPT_P)/print_header.sh
-	@$(MAKE) PRINT=1
-else
 	@make -C $(MLX_PATH)
-endif
 	
 $(NAME) : $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $@ $(GFLAGS) 
@@ -71,7 +63,6 @@ $(NAME) : $(OBJ)
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	@mkdir -p $(OBJ_PATH)
 	$(CC) $(CFLAGS) -MMD -I$(HEADER_P) -o $@ -c $<
-	@printf "\e[1;30m$(CC): \e[1;37m./%-30s\e[1;0m\n" "$< -o $@"
 
 clean :
 	make -C $(MLX_PATH) clean

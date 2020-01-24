@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 22:15:49 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/22 01:40:48 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/24 02:53:55 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,19 @@ void	ft_init(t_data *data)
 	data->event.r_arrow = 0;
 	data->event.run = 0;
 	data->event.screenshot = 0;
-	data->size_line = 0;
-	data->num_line = 0;
-	data->actu_line = 0;
+	data->sprite.ptr = NULL;
+	data->ciel.ptr = NULL;
+	data->sol.ptr = NULL;
+	data->ntext.ptr = NULL;
+	data->stext.ptr = NULL;
+	data->etext.ptr = NULL;
+	data->wtext.ptr = NULL;
 	if (!(data->zbuffer = malloc(sizeof(double) * data->parse.width)))
-	{
-		write(2, "Malloc error.\n", 14);
 		exit(0);
-	}
 	data->obj = NULL;
 }
 
-void	init_parse(t_parse *parse)
+void	init_parse(t_parse *parse, t_data *data)
 {
 	parse->check_res = FALSE;
 	parse->check_no = FALSE;
@@ -67,4 +68,9 @@ void	init_parse(t_parse *parse)
 	parse->check_sprite = FALSE;
 	parse->width = 0;
 	parse->height = 0;
+	parse->sky_tex = NULL;
+	parse->floor_tex = NULL;
+	data->size_line = 0;
+	data->num_line = 0;
+	data->actu_line = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/15 17:46:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/23 22:15:10 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/23 23:56:36 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,10 @@
 
 void			load_textures(t_data *data)
 {
-	data->ntext.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			data->parse.no_tex,
-						&(data->ntext.width), &(data->ntext.height));
-	data->stext.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			data->parse.so_tex,
-						&(data->stext.width), &(data->stext.height));
-	data->etext.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			data->parse.ea_tex,
-						&(data->etext.width), &(data->etext.height));
-	data->wtext.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			data->parse.we_tex,
-						&(data->wtext.width), &(data->wtext.height));
+	load_data(data, &data->ntext.ptr, data->parse.no_tex, &data->ntext);
+	load_data(data, &data->stext.ptr, data->parse.so_tex, &data->stext);
+	load_data(data, &data->etext.ptr, data->parse.ea_tex, &data->etext);
+	load_data(data, &data->wtext.ptr, data->parse.we_tex, &data->wtext);
 	data->tmp_ntext = resize_image(data, &data->ntext, 750, 750);
 	mlx_destroy_image(data->mlx.ptr, data->ntext.ptr);
 	data->ntext = data->tmp_ntext;
@@ -42,9 +34,7 @@ void			load_textures(t_data *data)
 
 static void		load_background2(t_data *data)
 {
-	data->sprite.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			data->parse.sprite_tex,
-			&(data->sprite.width), &(data->sprite.height));
+	load_data(data, &data->sprite.ptr, data->parse.sprite_tex, &data->sprite);
 	data->tmp_sprite = resize_image(data, &data->sprite, 1000, 1000);
 	mlx_destroy_image(data->mlx.ptr, data->sprite.ptr);
 	data->sprite = data->tmp_sprite;
@@ -72,9 +62,8 @@ void			load_background(t_data *data)
 {
 	if (data->parse.sky_tex)
 	{
-		data->ciel.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-			data->parse.sky_tex,
-						&(data->ciel.width), &(data->ciel.height));
+		load_data(data, &data->ciel.ptr, data->parse.sky_tex,
+				&data->ciel);
 		data->tmp_ciel = resize_image(data, &data->ciel, data->parse.width,
 			data->parse.height / 2);
 		mlx_destroy_image(data->mlx.ptr, data->ciel.ptr);
@@ -82,8 +71,8 @@ void			load_background(t_data *data)
 	}
 	if (data->parse.floor_tex)
 	{
-		data->sol.ptr = mlx_xpm_file_to_image(data->mlx.ptr,
-		data->parse.floor_tex, &(data->sol.width), &(data->sol.height));
+		load_data(data, &data->sol.ptr, data->parse.floor_tex,
+				&data->sol);
 		data->tmp_sol = resize_image(data, &data->sol, data->parse.width,
 			data->parse.height / 2);
 		mlx_destroy_image(data->mlx.ptr, data->sol.ptr);

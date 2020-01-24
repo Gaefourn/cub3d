@@ -6,33 +6,34 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 23:43:31 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/23 22:15:08 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/24 02:53:52 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "get_next_line.h"
 
-void	parse_sky(char *str, t_parse *parse, t_bool *check)
+void	parse_sky(char *str, t_parse *parse, t_bool *check, t_data *data)
 {
 	int i;
 
 	i = 1;
-	norme_parse_sky(str, check);
+	norme_parse_sky(str, check, data);
 	while (str[i] == ' ' || str[i] == '\t')
 		i++;
 	if (str[i] >= '0' && str[i] <= '9')
 	{
-		parse->sky_col = create_hex(str + i);
+		parse->sky_col = create_hex(str + i, data);
 	}
 	else if (str[i] == '.' && str[i + 1] == '/')
 	{
 		parse->sky_tex = ft_strdup(str + i);
-		if (check_folder(parse->sky_tex) == -1)
+		if (check_folder(parse->sky_tex, data) == -1)
 		{
 			write(2, "Error,\nSky's texture is invalid.\n", 33);
 			if (str)
 				free(str);
+			free_path(data);
 			exit(0);
 		}
 	}
@@ -49,7 +50,7 @@ int		ft_strlen(char *str)
 	return (i);
 }
 
-void	treat_line(char *src, char *dst)
+void	treat_line(char *src, char *dst, t_data *data)
 {
 	int	i;
 	int	j;
@@ -63,15 +64,13 @@ void	treat_line(char *src, char *dst)
 		if (src[i] == '0' || src[i] == '1' || src[i] == '2' || src[i] == '3'
 		|| src[i] == '4' || src[i] == '5' || src[i] == '6' || src[i] == 'N' ||
 		src[i] == 'S' || src[i] == 'E' || src[i] == 'W')
-		{
-			dst[j] = src[i];
-			j++;
-		}
+			dst[j++] = src[i];
 		else
 		{
 			write(2, "Error,\nMap is invalid.\n", 23);
-			if (dst)
-				free(dst);
+			free(src);
+			free(dst);
+			free_path(data);
 			exit(0);
 		}
 	}
@@ -106,7 +105,7 @@ void	read_map(t_data *data, char *buffer)
 	if (!(str = malloc(sizeof(char) * size + 1)))
 		exit(0);
 	check_map_line(buffer, data);
-	treat_line(buffer, str);
+	treat_line(buffer, str, data);
 	if (data->size_line == 0)
 		data->size_line = size;
 	if (data->size_line != 0)
@@ -118,6 +117,7 @@ void	read_map(t_data *data, char *buffer)
 			while (++i < data->actu_line)
 				free(data->map[i]);
 			free(data->map);
+			free_path(data);
 			exit(0);
 		}
 	data->map[data->actu_line] = str;

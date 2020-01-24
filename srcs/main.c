@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 01:57:37 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/22 06:06:08 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/24 02:30:55 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void		ft_norme(t_data *data)
 	if (data->event.run == 1)
 		data->perso.speed = 0.1200;
 	if (data->event.run != 1)
-		data->perso.speed = 0.0186;
+		data->perso.speed = 0.0800;
 	if (data->event.screenshot == 1)
 		screenshot(data);
 }
@@ -105,7 +105,7 @@ int				main(int ac, char **av)
 		write(2, "Error,\nWrong numbers of argument.\n", 34);
 		return (0);
 	}
-	if (parse_arg(av[1]) == -1)
+	if (parse_arg(av[1], &data) == -1)
 	{
 		write(2, "Error,\nMap file is invalid.\n", 28);
 		return (0);

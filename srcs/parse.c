@@ -6,14 +6,14 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/19 16:42:55 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/23 21:33:37 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/24 02:44:48 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "cub3d.h"
 
-long	create_hex(char *str)
+long	create_hex(char *str, t_data *data)
 {
 	int		r;
 	int		g;
@@ -32,13 +32,14 @@ long	create_hex(char *str)
 		write(2, "Error,\ncolor is invalid.\n", 26);
 		if (str)
 			free(str);
+		free_path(data);
 		exit(0);
 	}
 	color = (r << 16) + (g << 8) + b;
 	return (color);
 }
 
-void	parse_res(char *str, t_parse *parse, t_bool *check)
+void	parse_res(char *str, t_parse *parse, t_bool *check, t_data *data)
 {
 	int	i;
 
@@ -46,8 +47,8 @@ void	parse_res(char *str, t_parse *parse, t_bool *check)
 	if (*check == TRUE)
 	{
 		write(2, "Error,\nThere is more than one path for a texture.\n", 50);
-		if (str)
-			free(str);
+		str ? free(str) : 1;
+		free_path(data);
 		exit(0);
 	}
 	parse->width = ft_atoi(str + i);
@@ -56,17 +57,18 @@ void	parse_res(char *str, t_parse *parse, t_bool *check)
 	while (str[i] >= '0' && str[i] <= '9' && str[i])
 		i++;
 	parse->height = ft_atoi(str + i);
+	norme_parse_res(&data->parse.width, &data->parse.height);
 	if (parse->width <= 0 || parse->height <= 0)
 	{
 		write(2, "Error,\nInvalid resolution.\n", 27);
-		if (str)
-			free(str);
+		str ? free(str) : 1;
+		free_path(data);
 		exit(0);
 	}
 	*check = TRUE;
 }
 
-void	parse_tex(char *str, char **tex, t_bool *check)
+void	parse_tex(char *str, char **tex, t_bool *check, t_data *data)
 {
 	int	i;
 
@@ -75,6 +77,7 @@ void	parse_tex(char *str, char **tex, t_bool *check)
 		write(2, "Error,\nThere is more than one path for a texture.\n", 50);
 		if (str)
 			free(str);
+		free_path(data);
 		exit(0);
 	}
 	i = 0;
@@ -84,36 +87,37 @@ void	parse_tex(char *str, char **tex, t_bool *check)
 		i++;
 	if (str[i] == '.' && str[i + 1] == '/')
 		*tex = ft_strdup(str + i);
-	if (check_folder(*tex) == -1)
+	if (check_folder(*tex, data) == -1)
 	{
 		write(2, "Error,\nAt least one texture path is invalid.\n", 45);
-		if (str)
-			free(str);
+		str ? free(str) : 1;
+		free_path(data);
 		exit(0);
 	}
 	*check = TRUE;
 }
 
-void	parse_floor(char *str, t_parse *parse, t_bool *check)
+void	parse_floor(char *str, t_parse *parse, t_bool *check, t_data *data)
 {
 	int	i;
 
 	i = 1;
-	norme_parse_floor(str, check);
+	norme_parse_floor(str, check, data);
 	while (str[i] == ' ' || str[i] == '\t')
 		i++;
 	if (str[i] >= '0' && str[i] <= '9')
 	{
-		parse->floor_col = create_hex(str + i);
+		parse->floor_col = create_hex(str + i, data);
 	}
 	else if (str[i] == '.' && str[i + 1] == '/')
 	{
 		parse->floor_tex = ft_strdup(str + i);
-		if (check_folder(parse->floor_tex) == -1)
+		if (check_folder(parse->floor_tex, data) == -1)
 		{
 			write(2, "Error,\nFloor's texture is invalid.\n", 35);
 			if (str)
 				free(str);
+			free_path(data);
 			exit(0);
 		}
 	}
@@ -126,7 +130,7 @@ int		parse(char *path, t_parse *parse, t_data *data)
 	int		ret;
 	int		fd;
 
-	init_parse(parse);
+	init_parse(parse, data);
 	fd = open(path, O_RDONLY);
 	set_num_line(data, path);
 	buffer = NULL;
