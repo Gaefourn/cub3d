@@ -6,7 +6,7 @@
 /*   By: glaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 03:33:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/24 02:40:56 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/24 02:59:14 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,7 +232,8 @@ void			print_obj(t_data *data, t_obj *obj);
 int				parse(char *path, t_parse *parse, t_data *data);
 int				ft_atoi(const char *nptr);
 void			init_parse(t_parse *parse, t_data *data);
-void			parse_sky(char *str, t_parse *parse, t_bool *check, t_data *data);
+void			parse_sky(char *str,
+		t_parse *parse, t_bool *check, t_data *data);
 long			create_hex(char *str, t_data *data);
 void			read_map(t_data *data, char *buffer);
 void			set_num_line(t_data *data, char *path);
@@ -242,9 +243,11 @@ void			norme_create_hex(char *str, int *r, int *g, int *b);
 int				norme_main_parse(char *buffer, t_parse *parse, t_data *data);
 void			norme_parse_sky(char *str, t_bool *check, t_data *data);
 void			norme_main_parse2(char *buffer, t_parse *parse, t_data *data);
-void			parse_res(char *str, t_parse *parse, t_bool *check, t_data *data);
+void			parse_res(char *str,
+		t_parse *parse, t_bool *check, t_data *data);
 void			parse_tex(char *str, char **tex, t_bool *check, t_data *data);
-void			parse_floor(char *str, t_parse *parse, t_bool *check, t_data *data);
+void			parse_floor(char *str,
+		t_parse *parse, t_bool *check, t_data *data);
 void			norme_parse_floor(char *str, t_bool *check, t_data *data);
 void			init_idobj2(t_data *data);
 void			norme_obj(t_data *data, t_obj *obj, int y, int stripe);

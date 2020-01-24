@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 01:57:37 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/24 02:30:55 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/24 03:33:02 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,18 @@
 #include <unistd.h>
 #include <math.h>
 
-static int		exit_properly(char *error_msg)
+static int		exit_properly(t_data *data)
 {
-	int	i;
-
-	i = 0;
-	while (error_msg[i])
-		++i;
-	write(2, error_msg, i);
-	exit(1);
+	write(1, "Cub3d s'est correctement fermé.\n", 33);
+	free_images(data);
+	free_path(data);
 	exit(0);
 }
 
 static int		key(int key, t_data *data)
 {
 	if (key == ESC)
-		exit_properly("Cub3d s'est correctement eteint.\n");
+		exit_properly(data);
 	else if (key == FORWARD)
 		data->event.forward ^= 1;
 	else if (key == BACKWARD)
@@ -118,8 +114,7 @@ int				main(int ac, char **av)
 	mlx_do_key_autorepeatoff(data.mlx.ptr);
 	mlx_hook(data.mlx.win, KEYDOWN, 0, key, &data);
 	mlx_hook(data.mlx.win, KEYUP, 0, key, &data);
-	mlx_hook(data.mlx.win, QUIT, 0, exit_properly,
-		"Cub3d s'est correctement eteint.\n");
+	mlx_hook(data.mlx.win, QUIT, 0, exit_properly, &data);
 	mlx_loop_hook(data.mlx.ptr, ft_move, &data);
 	mlx_loop(data.mlx.ptr);
 	return (0);

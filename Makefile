@@ -4,7 +4,7 @@ NAME     =	Cub3D
 CC       =	gcc
 
 #	Flags     #
-CFLAGS   =	-Wall -Wextra -Werror -O3#-g3 -fsanitize=address -O3
+CFLAGS   =	-Wall -Wextra -Werror -O3 #-g3 -fsanitize=address -O3
 GFLAGS   =	-lm -L$(MLX_PATH) -lmlx -I$(MLX_PATH) -framework OpenGL -framework Appkit
 
 # 	Headers   #
@@ -54,22 +54,24 @@ MLX      =	$(addprefix $(MLX_PATH)/,$(MLX_LIB))
 all : $(MLX_LIB) $(NAME)
 
 $(MLX_LIB) :
+	@printf "Compiling lib ...\n"
 	@make -C $(MLX_PATH)
 	
 $(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $@ $(GFLAGS) 
+	@printf "Compiling srcs ...\n"
+	@$(CC) $(CFLAGS) $(OBJ) -o $@ $(GFLAGS) 
 
 -include $(DEP)
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	@mkdir -p $(OBJ_PATH)
-	$(CC) $(CFLAGS) -MMD -I$(HEADER_P) -o $@ -c $<
-
+	@$(CC) $(CFLAGS) -MMD -I$(HEADER_P) -o $@ -c $<
 clean :
-	make -C $(MLX_PATH) clean
-	rm -rf $(OBJ_PATH) $(MLX_LIB) 
+	@printf "Deleting files ...\n"
+	@make -C $(MLX_PATH) clean
+	@rm -rf $(OBJ_PATH) $(MLX_LIB) 
 
 fclean : clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re : fclean all
 
