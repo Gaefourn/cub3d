@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/05 21:01:51 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/24 02:27:34 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/24 04:12:43 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,19 @@ void		screenshot(t_data *data)
 	if (!write_screen(data, fd, pad_byte_row))
 		write(2, "error\n", 6);
 	close(fd);
+}
+
+void		check_save(t_data *data, char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str)
+		if (str[i] == '-')
+			if (str[i + 1] == 's')
+				if (str[i + 2] == 'a')
+					if (str[i + 3] == 'v')
+						if (str[i + 4] == 'e')
+							if (str[i + 5] == '\0')
+								data->check_screen = 1;
 }

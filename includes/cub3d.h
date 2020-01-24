@@ -6,7 +6,7 @@
 /*   By: glaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 03:33:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/24 02:59:14 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/24 04:51:28 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,8 @@ typedef	struct	s_data
 	int			num_line;
 	int			actu_line;
 	double		*zbuffer;
+	int			check_screen;
+	int			sound;
 	t_idobj		idobj;
 }				t_data;
 
@@ -261,5 +263,8 @@ void			load_data(t_data *data, void **ptr, char *str, t_img *img);
 void			free_images(t_data *data);
 void			free_path(t_data *data);
 void			norme_parse_res(int *width, int *height);
+void			check_save(t_data *data, char *str);
+void			norme_main(int ac, char *str, t_data *data);
+void			check_sound(char *str, t_data *data);
 
 #endif

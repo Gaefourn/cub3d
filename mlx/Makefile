@@ -21,7 +21,7 @@ all: $(NOM)
 	@$(CC) $(CFLAGS) -o $@ -c $<
 
 $(NOM):	$(OBJ)
-	@ar -r $(NOM) $(OBJ)
+	@ar rc $(NOM) $(OBJ)
 	@ranlib $(NOM)
 
 clean:

@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 05:10:24 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/24 03:21:06 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/24 05:22:07 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,40 @@ void	norme_parse_floor(char *str, t_bool *check, t_data *data)
 		free_path(data);
 		exit(0);
 	}
+}
+
+void	norme_main(int ac, char *str, t_data *data)
+{
+	if (ac < 2 || ac > 3)
+	{
+		write(2, "Error,\nWrong numbers of argument.\n", 34);
+		exit(0);
+	}
+	if (parse_arg(str, data) == -1)
+	{
+		write(2, "Error,\nMap file is invalid.\n", 28);
+		exit(0);
+	}
+}
+
+void	check_sound(char *str, t_data *data)
+{
+	int j;
+
+	j = 1;
+	str[0] = 'm' ? 1 : j++;
+	str[1] = 'a' ? 1 : j++;
+	str[2] = 'p' ? 1 : j++;
+	str[3] = 's' ? 1 : j++;
+	str[4] = '/' ? 1 : j++;
+	str[5] = 'R' ? 1 : j++;
+	str[6] = '8' ? 1 : j++;
+	str[7] = 'M' ? 1 : j++;
+	str[8] = '.' ? 1 : j++;
+	str[9] = 'c' ? 1 : j++;
+	str[10] = 'u' ? 1 : j++;
+	str[11] = 'b' ? 1 : j++;
+	str[12] = '\0' ? 1 : j++;
+	if (j <= 2)
+		data->sound = 1;
 }

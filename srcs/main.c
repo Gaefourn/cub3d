@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 01:57:37 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/24 03:33:02 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/24 05:30:45 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,12 @@
 
 static int		exit_properly(t_data *data)
 {
-	write(1, "Cub3d s'est correctement fermé.\n", 33);
+	if (data->perso.pos.x == -1 || data->perso.pos.y == -1)
+		write(2, "Error,\nWrong position for character.\n", 37);
+	else
+		write(1, "Cub3d s'est correctement fermé.\n", 33);
+	if (data->sound == 1)
+		system("killall afplay");
 	free_images(data);
 	free_path(data);
 	exit(0);
@@ -68,7 +73,7 @@ static void		ft_norme(t_data *data)
 			(data->perso.dir.x * data->perso.speed))][(int)(data->perso.pos.y +
 						(data->perso.dir.y * data->perso.speed))] == '3')
 		data->map[(int)(data->perso.pos.x + (data->perso.dir.x *
-					data->perso.speed))][(int)(data->perso.pos.y +
+				data->perso.speed))][(int)(data->perso.pos.y +
 								(data->perso.dir.y * data->perso.speed))] = '0';
 	if (data->event.run == 1)
 		data->perso.speed = 0.1200;
@@ -89,6 +94,11 @@ static int		ft_move(t_data *data)
 		data->obj = NULL;
 	}
 	mlx_put_image_to_window(data->mlx.ptr, data->mlx.win, data->img.ptr, 0, 0);
+	if (data->check_screen == 1)
+	{
+		screenshot(data);
+		data->check_screen = 0;
+	}
 	return (0);
 }
 
@@ -96,18 +106,13 @@ int				main(int ac, char **av)
 {
 	t_data data;
 
-	if (ac < 2 || ac > 3)
-	{
-		write(2, "Error,\nWrong numbers of argument.\n", 34);
-		return (0);
-	}
-	if (parse_arg(av[1], &data) == -1)
-	{
-		write(2, "Error,\nMap file is invalid.\n", 28);
-		return (0);
-	}
+	norme_main(ac, av[1], &data);
 	parse(av[1], &data.parse, &data);
 	ft_init(&data);
+	check_save(&data, av[2]);
+	check_sound(av[1], &data);
+	if (data.perso.pos.x == -1 || data.perso.pos.y == -1)
+		exit_properly(&data);
 	crt_window(&data);
 	load_background(&data);
 	load_textures(&data);
@@ -116,6 +121,8 @@ int				main(int ac, char **av)
 	mlx_hook(data.mlx.win, KEYUP, 0, key, &data);
 	mlx_hook(data.mlx.win, QUIT, 0, exit_properly, &data);
 	mlx_loop_hook(data.mlx.ptr, ft_move, &data);
+	if (data.sound == 1)
+		system("afplay sounds/rickandmorty.mp3 &");
 	mlx_loop(data.mlx.ptr);
 	return (0);
 }

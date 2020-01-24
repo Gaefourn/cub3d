@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 22:12:13 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/23 21:16:34 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/24 03:57:26 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	ft_set_char(t_data *data, char c)
 {
 	data->perso.dir.x = -1 * (c == 'S' ? -1 : c == 'N');
-	data->perso.dir.y = -1 * (c == 'E' ? -1 : c == 'O');
-	data->perso.planx = 0.66 * (c == 'O' ? -1 : c == 'E');
+	data->perso.dir.y = -1 * (c == 'E' ? -1 : c == 'W');
+	data->perso.planx = 0.66 * (c == 'W' ? -1 : c == 'E');
 	data->perso.plany = 0.66 * (c == 'S' ? -1 : c == 'N');
 }
 

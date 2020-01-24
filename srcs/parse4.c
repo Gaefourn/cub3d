@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 05:19:25 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/24 03:20:59 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/24 05:08:34 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int		parse_arg(char *str, t_data *data)
 	int		len;
 
 	len = ft_strlen(str);
-	check_folder(str, data);
+	if (check_folder(str, data) == -1)
+		return (-1);
 	if (str[len - 1] != 'b' && str[len - 2] != 'u' && str[len - 3] != 'c' &&
 			str[len - 4] != '.')
 		return (-1);

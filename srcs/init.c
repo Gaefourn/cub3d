@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 22:15:49 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/24 02:53:55 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/24 04:35:42 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	ft_init(t_data *data)
 	data->event.r_arrow = 0;
 	data->event.run = 0;
 	data->event.screenshot = 0;
+	data->event.door = 0;
 	data->sprite.ptr = NULL;
 	data->ciel.ptr = NULL;
 	data->sol.ptr = NULL;
@@ -51,6 +52,7 @@ void	ft_init(t_data *data)
 	data->stext.ptr = NULL;
 	data->etext.ptr = NULL;
 	data->wtext.ptr = NULL;
+	data->check_screen = -1;
 	if (!(data->zbuffer = malloc(sizeof(double) * data->parse.width)))
 		exit(0);
 	data->obj = NULL;
@@ -73,4 +75,6 @@ void	init_parse(t_parse *parse, t_data *data)
 	data->size_line = 0;
 	data->num_line = 0;
 	data->actu_line = 0;
+	data->perso.pos.x = -1;
+	data->perso.pos.y = -1;
 }

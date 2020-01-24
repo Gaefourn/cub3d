@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 23:26:46 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/24 03:27:32 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/24 04:59:57 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@ void	load_data(t_data *data, void **ptr, char *str, t_img *img)
 
 void	free_images(t_data *data)
 {
-	if (data->sprite.ptr)
+	if (data->sprite.ptr != 0)
 		mlx_destroy_image(data->mlx.ptr, data->sprite.ptr);
-	if (data->ciel.ptr)
+	if (data->ciel.ptr != 0)
 		mlx_destroy_image(data->mlx.ptr, data->ciel.ptr);
-	if (data->sol.ptr)
+	if (data->sol.ptr != 0)
 		mlx_destroy_image(data->mlx.ptr, data->sol.ptr);
-	if (data->stext.ptr)
+	if (data->stext.ptr != 0)
 		mlx_destroy_image(data->mlx.ptr, data->stext.ptr);
-	if (data->ntext.ptr)
+	if (data->ntext.ptr != 0)
 		mlx_destroy_image(data->mlx.ptr, data->ntext.ptr);
-	if (data->etext.ptr)
+	if (data->etext.ptr != 0)
 		mlx_destroy_image(data->mlx.ptr, data->etext.ptr);
-	if (data->wtext.ptr)
+	if (data->wtext.ptr != 0)
 		mlx_destroy_image(data->mlx.ptr, data->wtext.ptr);
 }
 
