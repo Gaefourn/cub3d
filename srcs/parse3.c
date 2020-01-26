@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 02:37:01 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/24 04:54:01 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/26 23:24:54 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ parse->check_sky == TRUE && parse->check_no == TRUE && parse->check_so == TRUE
 			;
 		else
 		{
-			write(2, "Oops, somethng went wrong lul.\n", 30);
+			write(2, "Error,\n.cub file is invalid.\n", 29);
 			if (*buffer)
 				free(buffer);
 			free_path(data);

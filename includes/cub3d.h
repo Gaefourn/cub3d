@@ -6,7 +6,7 @@
 /*   By: glaurent <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 03:33:11 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/24 04:51:28 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/26 23:21:10 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define R_ARROW 124
 # define ACTION 14
 # define RUN 257
+# define RESPAWN 35
 # define SCREENSHOT 105
 
 # include "mlx.h"
@@ -84,6 +85,7 @@ typedef	struct	s_event
 	t_bool		door;
 	t_bool		run;
 	t_bool		screenshot;
+	t_bool		respawn;
 }				t_event;
 
 typedef	struct	s_ray
@@ -196,6 +198,8 @@ typedef	struct	s_data
 	t_obj		*obj;
 	pid_t		music;
 	int			check;
+	double		startx;
+	double		starty;
 	char		**map;
 	char		**map2;
 	t_parse		parse;
@@ -266,5 +270,6 @@ void			norme_parse_res(int *width, int *height);
 void			check_save(t_data *data, char *str);
 void			norme_main(int ac, char *str, t_data *data);
 void			check_sound(char *str, t_data *data);
+void			init_struct(t_data *data);
 
 #endif

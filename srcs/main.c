@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 01:57:37 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/24 05:30:45 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/26 23:27:07 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int		exit_properly(t_data *data)
 	if (data->perso.pos.x == -1 || data->perso.pos.y == -1)
 		write(2, "Error,\nWrong position for character.\n", 37);
 	else
-		write(1, "Cub3d s'est correctement fermé.\n", 33);
+		write(1, "Cub3d closed properly.\n", 23);
 	if (data->sound == 1)
 		system("killall afplay");
 	free_images(data);
@@ -52,6 +52,8 @@ static int		key(int key, t_data *data)
 		data->event.screenshot ^= 1;
 	else if (key == ACTION)
 		data->event.door ^= 1;
+	else if (key == RESPAWN)
+		data->event.respawn ^= 1;
 	return (0);
 }
 
@@ -87,6 +89,11 @@ static int		ft_move(t_data *data)
 {
 	ft_norme(data);
 	crt_img(data);
+	if (data->event.respawn == 1)
+	{
+		data->perso.pos.x = data->startx;
+		data->perso.pos.y = data->starty;
+	}
 	if (data->obj)
 	{
 		print_obj(data, data->obj);
@@ -106,6 +113,7 @@ int				main(int ac, char **av)
 {
 	t_data data;
 
+	init_struct(&data);
 	norme_main(ac, av[1], &data);
 	parse(av[1], &data.parse, &data);
 	ft_init(&data);

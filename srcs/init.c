@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 22:15:49 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/24 04:35:42 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/26 23:26:26 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	ft_init(t_data *data)
 	data->event.right = 0;
 	data->event.l_arrow = 0;
 	data->event.r_arrow = 0;
+	data->event.respawn = 0;
 	data->event.run = 0;
 	data->event.screenshot = 0;
 	data->event.door = 0;
@@ -77,4 +78,16 @@ void	init_parse(t_parse *parse, t_data *data)
 	data->actu_line = 0;
 	data->perso.pos.x = -1;
 	data->perso.pos.y = -1;
+}
+
+void	init_struct(t_data *data)
+{
+	data->parse.no_tex = NULL;
+	data->parse.so_tex = NULL;
+	data->parse.ea_tex = NULL;
+	data->parse.we_tex = NULL;
+	data->parse.sprite_tex = NULL;
+	data->parse.sky_tex = NULL;
+	data->parse.floor_tex = NULL;
+	data->sound = -1;
 }

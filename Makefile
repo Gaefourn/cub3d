@@ -4,7 +4,7 @@ NAME     =	Cub3D
 CC       =	gcc
 
 #	Flags     #
-CFLAGS   =	-Wall -Wextra -Werror -O3 #-g3 -fsanitize=address -O3
+CFLAGS   =	-Wall -Wextra -Werror -O3 # -g3 -fsanitize=address #-O3
 GFLAGS   =	-lm -L$(MLX_PATH) -lmlx -I$(MLX_PATH) -framework OpenGL -framework Appkit
 
 # 	Headers   #
@@ -65,6 +65,7 @@ $(NAME) : $(OBJ)
 $(OBJ_PATH)/%.o : $(SRC_PATH)/%.c
 	@mkdir -p $(OBJ_PATH)
 	@$(CC) $(CFLAGS) -MMD -I$(HEADER_P) -o $@ -c $<
+
 clean :
 	@printf "Deleting files ...\n"
 	@make -C $(MLX_PATH) clean

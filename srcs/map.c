@@ -6,7 +6,7 @@
 /*   By: gaefourn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/04 22:12:13 by gaefourn          #+#    #+#             */
-/*   Updated: 2020/01/24 03:57:26 by gaefourn         ###   ########.fr       */
+/*   Updated: 2020/01/26 22:40:48 by gaefourn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	check_char(t_data *data)
 				data->map[i][j] = '0';
 				data->perso.pos.x = (double)i + 0.5;
 				data->perso.pos.y = (double)j + 0.5;
+				data->startx = data->perso.pos.x;
+				data->starty = data->perso.pos.y;
 			}
 			j++;
 		}
