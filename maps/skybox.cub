@@ -1,0 +1,13 @@
+R 1920 1080
+
+NO ./textures/ciel.xpm
+SO ./textures/ciel.xpm
+WE ./textures/ciel.xpm
+EA ./textures/ciel.xpm
+S ./textures/lampadaire.xpm
+F ./textures/ciel.xpm
+C ./textures/ciel.xpm
+
+111
+1S1
+111
